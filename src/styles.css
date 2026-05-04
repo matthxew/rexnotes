@@ -1000,7 +1000,7 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
 }
 .tl-dek {
   font-size: 16px; line-height: 1.55; color: var(--ink-2);
-  margin: 0; max-width: 56ch;
+  margin: 0; max-width: 60ch;
 }
 .tl-key {
   display: inline-block;
@@ -1009,12 +1009,17 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
   padding: 1px 7px; border-radius: 4px; color: var(--ink);
   margin: 0 2px;
 }
-.tl-legend {
+
+/* Footnote below the track — replaces the .tl-legend that used to live
+   above. Keeps the mya gloss available without crowding the header. */
+.tl-footnote {
   font-family: var(--sans);
-  font-size: 14px; line-height: 1.55; color: var(--ink-3);
-  margin: 12px 0 0; max-width: 60ch;
+  font-size: 13px; line-height: 1.6; color: var(--ink-3);
+  margin: 18px auto 0; max-width: 60ch;
+  text-align: center;
+  text-wrap: pretty;
 }
-.tl-legend em { font-style: italic; color: var(--ink-2); }
+.tl-footnote em { font-style: italic; color: var(--ink-2); }
 .tl-legend-chip {
   display: inline-block;
   font-family: var(--sans); font-size: 10px;
@@ -1025,33 +1030,22 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
   vertical-align: 1px;
 }
 
-.tl-callout-top {
+/* Callout — fixed min-height + grid, sits directly above the track.
+   Locked size so the timeline doesn't reflow as the selection changes. */
+.tl-callout {
   background: var(--paper-2);
   border-radius: 14px;
-  padding: 26px 32px;
-  margin-bottom: 24px;
+  padding: 24px 28px;
+  margin-bottom: 18px;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto auto auto auto;
+  row-gap: 14px;
+  min-height: 280px;
 }
-.tl-top-head {
+.tl-callout-head {
   display: flex; align-items: baseline; justify-content: space-between;
   gap: 24px;
-  margin-bottom: 10px;
-}
-.tl-top-meta {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 24px;
-  margin-top: 18px;
-  padding-top: 18px;
-  border-top: 1px solid var(--rule);
-}
-@media (max-width: 600px) {
-  .tl-top-head { flex-direction: column; align-items: flex-start; gap: 14px; }
-  .tl-top-meta { grid-template-columns: 1fr; gap: 14px; }
-}
-.tl-callout-label {
-  font-family: var(--sans); font-size: 11px;
-  text-transform: uppercase; letter-spacing: 0.16em;
-  color: var(--ink-3); white-space: nowrap;
 }
 .tl-callout-name {
   font-family: var(--display);
@@ -1059,12 +1053,70 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
   line-height: 1.05;
   letter-spacing: -0.005em;
 }
+.tl-callout-name[data-era="Triassic"]   { color: var(--triassic); }
+.tl-callout-name[data-era="Jurassic"]   { color: var(--jurassic); }
+.tl-callout-name[data-era="Cretaceous"] { color: var(--cretaceous); }
+.tl-callout-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  padding-top: 14px;
+  border-top: 1px solid var(--rule);
+}
+.tl-callout-cell { min-width: 0; }
+.tl-callout-label {
+  font-family: var(--sans); font-size: 11px;
+  text-transform: uppercase; letter-spacing: 0.16em;
+  color: var(--ink-3); white-space: nowrap;
+  margin-bottom: 4px;
+}
+.tl-callout-value {
+  font-family: var(--sans); font-size: 15.5px; line-height: 1.45;
+  color: var(--ink);
+  text-wrap: pretty;
+}
 .tl-callout-fact {
   font-family: var(--sans);
-  font-size: 16px; line-height: 1.55;
+  font-size: 15px; line-height: 1.55;
   color: var(--ink-2);
   text-wrap: pretty;
   margin: 0;
+}
+.tl-callout-alongside {
+  display: flex; align-items: flex-start; flex-wrap: wrap; gap: 10px;
+  padding-top: 14px;
+  border-top: 1px solid var(--rule);
+}
+.tl-callout-alongside .tl-callout-label { margin-bottom: 0; padding-top: 5px; }
+.tl-alongside-list {
+  list-style: none; padding: 0; margin: 0;
+  display: flex; flex-wrap: wrap; gap: 6px;
+}
+.tl-alongside-chip {
+  font-family: var(--sans); font-size: 11px;
+  text-transform: uppercase; letter-spacing: 0.1em;
+  padding: 4px 10px;
+  border: 1px solid var(--rule);
+  background: var(--paper);
+  color: var(--ink-2);
+  border-radius: 999px;
+  white-space: nowrap;
+  transition: background 140ms ease, color 140ms ease, border-color 140ms ease;
+}
+.tl-alongside-chip:hover { color: var(--ink); border-color: var(--ink); }
+.tl-alongside-chip[data-era="Triassic"]   { border-left: 3px solid var(--triassic); }
+.tl-alongside-chip[data-era="Jurassic"]   { border-left: 3px solid var(--jurassic); }
+.tl-alongside-chip[data-era="Cretaceous"] { border-left: 3px solid var(--cretaceous); }
+.tl-alongside-empty {
+  font-family: var(--sans); font-size: 13px;
+  color: var(--ink-3);
+  font-style: italic;
+  padding-top: 4px;
+}
+@media (max-width: 600px) {
+  .tl-callout { padding: 20px 22px; min-height: 320px; }
+  .tl-callout-head { flex-direction: column; align-items: flex-start; gap: 12px; }
+  .tl-callout-grid { grid-template-columns: 1fr; gap: 12px; }
 }
 
 /* Track */
@@ -1073,9 +1125,7 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
   background: var(--paper-2);
   border-radius: 14px;
   padding: 28px 24px 76px;
-  cursor: ew-resize;
   user-select: none;
-  touch-action: pan-y;
 }
 .tl-dots { overflow: visible; }
 .tl-bands {
@@ -1087,9 +1137,6 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
   overflow: hidden;
   background: var(--paper-2);
 }
-/* Strata, not pills: square edges, layered backgrounds.
-   Each band carries a faint horizontal grain in its era hue so the row
-   reads as rock layers rather than coloured chips. */
 .tl-band {
   position: absolute; top: 0; bottom: 0;
   display: flex; align-items: center;
@@ -1135,6 +1182,22 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
   z-index: 1;
 }
 
+/* Selection lifespan range — drawn over the strata band, beneath the
+   labels. Era-tinted, with a thicker top/bottom edge so it reads as
+   a marked-off range, not just a wash. */
+.tl-range {
+  position: absolute; top: 0; bottom: 0;
+  background: color-mix(in oklab, var(--ink) 8%, transparent);
+  border-top: 2px solid var(--ink);
+  border-bottom: 2px solid var(--ink);
+  pointer-events: none;
+  z-index: 0;
+  transition: left 220ms ease, width 220ms ease;
+}
+.tl-range[data-era="Triassic"]   { border-color: var(--triassic); }
+.tl-range[data-era="Jurassic"]   { border-color: var(--jurassic); }
+.tl-range[data-era="Cretaceous"] { border-color: var(--cretaceous); }
+
 .tl-dots {
   position: relative;
   margin-bottom: 12px;
@@ -1146,7 +1209,7 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
   gap: 6px;
   cursor: pointer;
   transition: transform 240ms cubic-bezier(.2,.7,.2,1), opacity 240ms ease;
-  opacity: 0.55;
+  opacity: 0.5;
   pointer-events: auto;
 }
 .tl-dot .tl-dot-name {
@@ -1162,12 +1225,12 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
   pointer-events: none;
 }
 .tl-dot:hover { opacity: 1; }
-.tl-dot.in-bar { opacity: 1; }
-.tl-dot.in-bar .tl-dot-marker {
-  outline: 3px solid color-mix(in oklab, var(--ink) 18%, transparent);
+.tl-dot.is-alongside { opacity: 1; }
+.tl-dot.is-alongside .tl-dot-marker {
+  outline: 3px solid color-mix(in oklab, var(--ink) 20%, transparent);
   outline-offset: 2px;
 }
-.tl-dot.is-near {
+.tl-dot.is-selected {
   opacity: 1;
   transform: translate(-50%, -10px) scale(1.45);
   z-index: 5;
@@ -1181,34 +1244,11 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
 .tl-dot[data-era="Triassic"]   .tl-dot-marker { background: var(--triassic); }
 .tl-dot[data-era="Jurassic"]   .tl-dot-marker { background: var(--jurassic); }
 .tl-dot[data-era="Cretaceous"] .tl-dot-marker { background: var(--cretaceous); }
-.tl-dot.is-near .tl-dot-marker {
+.tl-dot.is-selected .tl-dot-marker {
   background: var(--accent);
   border-color: var(--accent-ink);
   outline: none;
 }
-
-.tl-tabs {
-  display: flex; flex-wrap: wrap; gap: 8px;
-  align-items: center;
-  margin: 4px 0 8px;
-}
-.tl-tabs-label {
-  font-family: var(--sans); font-size: 11px;
-  text-transform: uppercase; letter-spacing: 0.14em;
-  color: var(--ink-3); margin-right: 4px;
-}
-.tl-tab {
-  font-family: var(--sans); font-size: 11px;
-  text-transform: uppercase; letter-spacing: 0.1em;
-  padding: 6px 12px;
-  border: 1px solid var(--rule);
-  border-radius: 999px;
-  background: var(--paper);
-  color: var(--ink-2);
-  transition: all 140ms ease;
-}
-.tl-tab:hover { color: var(--ink); border-color: var(--ink); }
-.tl-tab.on { background: var(--ink); color: var(--paper); border-color: var(--ink); }
 
 .tl-ticks {
   position: absolute;
@@ -1237,51 +1277,11 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
 }
 .tl-tick.major .tl-tick-label { color: var(--ink); font-weight: 500; }
 
-/* Scrubber bar */
-.tl-scrub-bar {
-  position: absolute;
-  top: 16px; bottom: 66px;
-  background: color-mix(in oklab, var(--ink) 12%, transparent);
-  border-left: 2px solid var(--ink);
-  border-right: 2px solid var(--ink);
-  border-radius: 4px;
-  z-index: 6;
-  cursor: grab;
-  pointer-events: auto;
-}
-.tl-scrub-bar:active { cursor: grabbing; }
-.tl-scrub-handle {
-  position: absolute;
-  top: -10px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: var(--ink);
-  color: var(--paper);
-  font-family: var(--sans);
-  font-size: 12px;
-  padding: 6px 12px;
-  border-radius: 999px;
-  white-space: nowrap;
-  pointer-events: auto;
-  cursor: grab;
-  font-weight: 500;
-}
-.tl-scrub-handle small {
-  font-size: 9px; opacity: 0.7; margin-left: 3px; letter-spacing: 0.08em;
-}
-.tl-scrub-handle[data-era="Triassic"]   { background: var(--triassic); }
-.tl-scrub-handle[data-era="Jurassic"]   { background: var(--jurassic); }
-.tl-scrub-handle[data-era="Cretaceous"] { background: var(--cretaceous); }
-
-.tl-callout-when, .tl-callout-where {
-  font-family: var(--sans); font-size: 16px; color: var(--ink);
-  margin-top: 4px;
-}
 .tl-open {
   font-family: var(--sans); font-size: 12px;
   text-transform: uppercase; letter-spacing: 0.14em;
   background: var(--accent); color: var(--accent-ink);
-  padding: 12px 18px; border-radius: 999px;
+  padding: 10px 16px; border-radius: 999px;
   white-space: nowrap;
   transition: transform 180ms ease;
 }
