@@ -754,6 +754,107 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
   letter-spacing: -0.005em;
 }
 
+/* ——— mode-aware visibility helpers ———
+   The toggle in the masthead sets body[data-mode]; pages opt in by tagging
+   blocks with .only-kid / .only-grownup. The mode-specific layout overrides
+   for the detail page sit just below. */
+[data-mode="kid"] .only-grownup,
+[data-mode="grownup"] .only-kid { display: none !important; }
+
+/* ——— detail page · kid mode (picture-book spread) ——— */
+[data-mode="kid"] .detail h1 {
+  font-size: clamp(44px, 7vw, 88px);
+}
+[data-mode="kid"] .detail-name-row {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+}
+[data-mode="kid"] .d-when {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: clamp(20px, 2.4vw, 26px);
+  line-height: 1.4;
+  color: var(--ink-2);
+  margin: 12px 0 0;
+  max-width: 56ch;
+  text-wrap: pretty;
+}
+[data-mode="kid"] .d-era-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: var(--sans); font-size: 11px;
+  text-transform: uppercase; letter-spacing: 0.16em;
+  color: var(--ink-3);
+  margin: 18px 0 0;
+}
+[data-mode="kid"] .d-era-badge .era-dot {
+  width: 8px; height: 8px;
+}
+[data-mode="kid"] .detail-content {
+  grid-template-columns: 1fr;
+  gap: 32px;
+  margin-top: 36px;
+}
+[data-mode="kid"] .detail-illus {
+  aspect-ratio: 5/4;
+  max-width: 760px;
+  width: 100%;
+  margin: 0 auto;
+  border-radius: 18px;
+}
+[data-mode="kid"] .facts {
+  grid-template-columns: 1fr;
+  max-width: 60ch;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 56px 0 16px;
+  gap: 0;
+}
+[data-mode="kid"] .fact-block.kids h2 {
+  font-size: clamp(30px, 4vw, 44px);
+  margin-bottom: 14px;
+}
+[data-mode="kid"] .fact-block.kids .fact-body {
+  font-size: 19px;
+  line-height: 1.65;
+}
+[data-mode="kid"] .trivia {
+  padding: 56px 0 56px;
+}
+[data-mode="kid"] .trivia h3 {
+  display: flex; justify-content: center;
+  margin-bottom: 28px;
+}
+[data-mode="kid"] .trivia ul {
+  grid-template-columns: 1fr;
+  max-width: 60ch;
+  margin: 0 auto;
+  gap: 28px;
+}
+[data-mode="kid"] .trivia li {
+  font-size: 17.5px;
+  line-height: 1.6;
+}
+
+/* ——— detail page · grown-up mode (field-guide plate) ———
+   Existing detail layout is already plate-y. Tighten copy + add a plate
+   number to the parents fact-label so the science block reads as a
+   numbered specimen entry. */
+[data-mode="grownup"] .detail h1 {
+  letter-spacing: -0.012em;
+}
+[data-mode="grownup"] .fact-block.parents .fact-body {
+  font-size: 16px;
+  line-height: 1.6;
+}
+[data-mode="grownup"] .fact-block.parents .fact-label::after {
+  content: " — Field notes";
+  color: var(--ink-3);
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  margin-left: 4px;
+}
+
 /* ——— about ——— */
 .about { padding: 64px 0 100px; max-width: 64ch; }
 .about h1 {

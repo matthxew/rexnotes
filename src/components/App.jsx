@@ -34,7 +34,7 @@ function useMode() {
     catch { return "kid"; }
   });
   useEffect(() => {
-    document.body.dataset.mode = mode;
+    document.documentElement.dataset.mode = mode;
     try { localStorage.setItem("rexatlas-mode", mode); } catch {}
   }, [mode]);
   return [mode, _setMode];
@@ -202,10 +202,17 @@ function Detail({ slug }) {
         <section className="detail-hero">
           <div className="detail-name-row">
             <h1>{dino.name}</h1>
-            <div className="pronunciation">
+            <div className="pronunciation only-grownup">
               <span>Said</span>
               <strong>{dino.pronunciation}</strong>
             </div>
+          </div>
+          <p className="d-when only-kid">{dino.kidTime}</p>
+          <div className="d-era-badge only-kid">
+            <span className="era-dot" data-era={dino.era}></span>
+            <span>{dino.era}</span>
+            <span>·</span>
+            <span>{dino.diet}</span>
           </div>
         </section>
 
@@ -213,7 +220,7 @@ function Detail({ slug }) {
           <div className="detail-illus">
             <window.Silhouette slug={dino.slug} era={dino.era} label="full illustration" />
           </div>
-          <div>
+          <div className="only-grownup">
             <div className="detail-meta-grid">
               <div className="meta-item">
                 <div className="meta-label">Era</div>
@@ -239,14 +246,12 @@ function Detail({ slug }) {
           </div>
         </section>
 
-        <section className="facts with-rule" style={{ marginTop: 56 }}>
-          <div className="fact-block kids">
-            <div className="fact-label" data-num="01">For Kids</div>
+        <section className="facts with-rule">
+          <div className="fact-block kids only-kid">
             <h2>What it was like.</h2>
             <p className="fact-body">{dino.forKids}</p>
-            <p className="fact-body" style={{ marginTop: 16, color: "var(--ink-2)" }}>{dino.kidTime}</p>
           </div>
-          <div className="fact-block parents">
+          <div className="fact-block parents only-grownup">
             <div className="fact-label" data-num="02">For Grown-ups</div>
             <h2>What we know now.</h2>
             <p className="fact-body">{dino.forParents}</p>

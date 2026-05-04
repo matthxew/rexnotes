@@ -3,6 +3,12 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Rex's Atlas</title>
+  <script>
+    /* Set mode synchronously so [data-mode] CSS selectors apply on the very
+       first paint, no flash-of-unset-mode when arriving on a detail page. */
+    try { document.documentElement.dataset.mode = localStorage.getItem("rexatlas-mode") || "kid"; }
+    catch (e) { document.documentElement.dataset.mode = "kid"; }
+  </script>
   <link rel="stylesheet" href="styles.css">
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
