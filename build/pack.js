@@ -32,6 +32,12 @@ const MIME = {
   '.jpg':   'image/jpeg',
 };
 
+// Babel runs at pack time only — its 3 MB cost stays out of the bundle.
+const Babel = require('./babel.min.js');
+function compileJSX(src) {
+  return Babel.transform(src, { presets: ['react'] }).code;
+}
+
 // Files consumed by the build itself, not bundled as assets.
 const SKIP = new Set(['index.html', 'styles.css']);
 
@@ -73,7 +79,10 @@ function buildManifest(map) {
     const uuid = map[rel];
     const ext = path.extname(rel).toLowerCase();
     const mime = MIME[ext] || 'application/octet-stream';
-    const raw = fs.readFileSync(path.join(SRC, rel));
+    let raw = fs.readFileSync(path.join(SRC, rel));
+
+    // Compile JSX -> JS at pack time so the bundle doesn't ship Babel.
+    if (ext === '.jsx') raw = Buffer.from(compileJSX(raw.toString('utf8')));
 
     let bytes = raw;
     let compressed = false;

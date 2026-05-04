@@ -1,7 +1,6 @@
 {
-  "vendor/react.development.js": "33ca4ea4-e84a-449d-a40b-5aa0922a40b4",
-  "vendor/react-dom.development.js": "c23302d9-6097-48e8-af32-d45a0acdd3b0",
-  "vendor/babel-standalone.js": "7856d974-fe37-45d1-ab62-2a8185e88590",
+  "vendor/react.production.min.js": "33ca4ea4-e84a-449d-a40b-5aa0922a40b4",
+  "vendor/react-dom.production.min.js": "c23302d9-6097-48e8-af32-d45a0acdd3b0",
   "vendor/d3.js": "f7e4e03d-80d5-4528-88b5-c5a28d3188ff",
   "vendor/topojson-client.js": "76917e2d-f16a-4880-8ad1-e8258cf41333",
   "data/dinosaurs.js": "48939b12-15ab-4871-851e-bc9890df94d6",
