@@ -331,7 +331,11 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
   color: var(--ink-3);
 }
 .results-meta strong { color: var(--ink); font-weight: 500; }
-.results-meta .rm-count { white-space: nowrap; }
+.results-meta .rm-count {
+  margin-left: auto;
+  white-space: nowrap;
+  color: var(--ink-3);
+}
 .results-meta .rm-sep { color: var(--ink-3); opacity: 0.5; }
 .results-meta .rm-filter {
   display: flex; align-items: center; flex-wrap: wrap; gap: 6px;
@@ -346,6 +350,9 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
   letter-spacing: 0.12em;
   padding: 4px 6px;
 }
+/* When clear is present right before count, clear takes the auto-push and
+   count just sits beside it. */
+.results-meta .rm-clear + .rm-count { margin-left: 12px; }
 .results-meta .rm-clear:hover { color: var(--ink); }
 
 /* small chip used inline with the count — quieter than the .chip used elsewhere */

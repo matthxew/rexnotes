@@ -133,8 +133,6 @@ function Home({ query, eras, diets, clearAll, mode, toggleEra, toggleDiet }) {
       </section>
 
       <div className="shell results-meta">
-        <div className="rm-count"><strong>{filtered.length}</strong> of {window.DINOSAURS.length} dinosaurs</div>
-        <div className="rm-sep" aria-hidden="true">·</div>
         <div className="rm-filter">
           <span className="rm-label">Era</span>
           {ERAS.map(e => (
@@ -155,6 +153,7 @@ function Home({ query, eras, diets, clearAll, mode, toggleEra, toggleDiet }) {
         {anyFilter ? (
           <button className="rm-clear" onClick={clearAll}>Clear ✕</button>
         ) : null}
+        <div className="rm-count"><strong>{filtered.length}</strong> of {window.DINOSAURS.length} dinosaurs</div>
       </div>
 
       {filtered.length === 0 ? (
