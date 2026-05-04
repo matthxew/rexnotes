@@ -25,7 +25,42 @@ function useHashRoute() {
 }
 function navigate(path) { location.hash = path; window.scrollTo({ top: 0, behavior: "instant" }); }
 
-function Masthead({ route, query, setQuery, eras, diets, toggleEra, toggleDiet, showFilters }) {
+// Mode is the picture-book vs field-guide toggle. Persisted in localStorage
+// and reflected as a body data-attribute so any selector can opt in via
+// [data-mode="kid"] or [data-mode="grownup"].
+function useMode() {
+  const [mode, _setMode] = useState(() => {
+    try { return localStorage.getItem("rexatlas-mode") || "kid"; }
+    catch { return "kid"; }
+  });
+  useEffect(() => {
+    document.body.dataset.mode = mode;
+    try { localStorage.setItem("rexatlas-mode", mode); } catch {}
+  }, [mode]);
+  return [mode, _setMode];
+}
+
+function ModeToggle({ mode, setMode }) {
+  return (
+    <div className="mode-toggle" role="group" aria-label="Reading mode">
+      <span className="mode-label">Read as</span>
+      <button
+        className={`mode-btn ${mode === "kid" ? "on" : ""}`}
+        onClick={() => setMode("kid")}
+        aria-pressed={mode === "kid"}>
+        Kid
+      </button>
+      <button
+        className={`mode-btn ${mode === "grownup" ? "on" : ""}`}
+        onClick={() => setMode("grownup")}
+        aria-pressed={mode === "grownup"}>
+        Grown-up
+      </button>
+    </div>
+  );
+}
+
+function Masthead({ route, query, setQuery, eras, diets, toggleEra, toggleDiet, showFilters, mode, setMode }) {
   return (
     <header className="masthead">
       <div className="shell masthead-row">
@@ -44,12 +79,15 @@ function Masthead({ route, query, setQuery, eras, diets, toggleEra, toggleDiet, 
           />
           {query ? <button className="clear" onClick={() => setQuery("")}>Clear</button> : null}
         </div>
-        <nav className="nav">
-          <button className={route.name === "home" ? "active" : ""} onClick={() => navigate("/")}>Index</button>
-          <button className={route.name === "timeline" ? "active" : ""} onClick={() => navigate("/timeline")}>Timeline</button>
-          <button className={route.name === "map" ? "active" : ""} onClick={() => navigate("/map")}>Map</button>
-          <button className={route.name === "about" ? "active" : ""} onClick={() => navigate("/about")}>About</button>
-        </nav>
+        <div className="nav-cluster">
+          <nav className="nav">
+            <button className={route.name === "home" ? "active" : ""} onClick={() => navigate("/")}>Index</button>
+            <button className={route.name === "timeline" ? "active" : ""} onClick={() => navigate("/timeline")}>Timeline</button>
+            <button className={route.name === "map" ? "active" : ""} onClick={() => navigate("/map")}>Map</button>
+            <button className={route.name === "about" ? "active" : ""} onClick={() => navigate("/about")}>About</button>
+          </nav>
+          <ModeToggle mode={mode} setMode={setMode} />
+        </div>
       </div>
       {showFilters && (
         <div className="shell mast-filters">
@@ -89,7 +127,7 @@ function Footer() {
   );
 }
 
-function Home({ query, eras, diets, clearAll }) {
+function Home({ query, eras, diets, clearAll, mode }) {
   const filtered = useMemo(() => {
     const needle = query.trim().toLowerCase();
     return window.DINOSAURS.filter(d => {
@@ -108,7 +146,14 @@ function Home({ query, eras, diets, clearAll }) {
   return (
     <main className="fade-in">
       <section className="shell hero">
-        <h1>Dinosaurs<br/>For <span className="accent">kids</span> and <em>grown-ups.</em></h1>
+        <h1>
+          Dinosaurs<br/>
+          {mode === "kid" ? (
+            <>For <span className="accent">kids</span> and <em>grown-ups.</em></>
+          ) : (
+            <>For <em>kids</em> and <span className="accent">grown-ups.</span></>
+          )}
+        </h1>
       </section>
 
       <div className="shell results-meta">
@@ -276,6 +321,7 @@ function About() {
 
 function App() {
   const route = useHashRoute();
+  const [mode, setMode] = useMode();
   const [query, setQuery] = useState("");
   const [eras, setEras] = useState(new Set());
   const [diets, setDiets] = useState(new Set());
@@ -304,8 +350,9 @@ function App() {
         eras={eras} diets={diets}
         toggleEra={toggleEra} toggleDiet={toggleDiet}
         showFilters={route.name === "home"}
+        mode={mode} setMode={setMode}
       />
-      {route.name === "home" && <Home query={query} eras={eras} diets={diets} clearAll={clearAll} />}
+      {route.name === "home" && <Home query={query} eras={eras} diets={diets} clearAll={clearAll} mode={mode} />}
       {route.name === "timeline" && <window.Timeline />}
       {route.name === "map" && <window.WorldMap />}
       {route.name === "detail" && <Detail slug={route.slug} />}

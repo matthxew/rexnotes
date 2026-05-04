@@ -229,9 +229,50 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
 @media (max-width: 720px) {
   .nav button { padding: 0 20px; min-height: 64px; }
 }
-.nav button:last-child { border-right: none; }
+.nav button:last-child { border-right: 1px solid var(--rule); }
 .nav button:hover { background: var(--paper-2); color: var(--ink); }
 .nav button.active { background: var(--ink); color: var(--paper); }
+
+/* nav + mode toggle share the third masthead column */
+.nav-cluster { display: flex; align-items: stretch; }
+
+/* Reading-mode toggle — segmented pair, paired with a label.
+   Visually a sibling of the nav, lighter weight than the destination
+   buttons because it's a control, not a destination. */
+.mode-toggle {
+  display: flex; align-items: center; gap: 8px;
+  padding: 0 20px;
+  height: 100%;
+  font-family: var(--sans);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: var(--ink-3);
+}
+.mode-label { color: var(--ink-3); white-space: nowrap; }
+.mode-btn {
+  font-family: var(--sans);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  padding: 6px 10px;
+  border: 1px solid var(--rule);
+  background: var(--paper);
+  color: var(--ink-2);
+  border-radius: 999px;
+  white-space: nowrap;
+  transition: background 140ms ease, color 140ms ease, border-color 140ms ease;
+}
+.mode-btn:hover { color: var(--ink); border-color: var(--ink); }
+.mode-btn.on {
+  background: var(--ink);
+  color: var(--paper);
+  border-color: var(--ink);
+}
+@media (max-width: 720px) {
+  .nav-cluster { flex-wrap: wrap; }
+  .mode-toggle { padding: 8px 22px; border-top: 1px solid var(--rule); }
+}
 
 /* second row of masthead: filters */
 .mast-filters {
