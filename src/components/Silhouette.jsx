@@ -20,10 +20,10 @@ window.Silhouette = function Silhouette({ slug, era, label = "illustration" }) {
   const path = bodies[bucket] || bodies.medium;
 
   const eraColor = {
-    Triassic:   "oklch(0.62 0.08 40)",
-    Jurassic:   "oklch(0.55 0.07 145)",
-    Cretaceous: "oklch(0.5 0.07 260)"
-  }[era] || "oklch(0.4 0.02 60)";
+    Triassic:   "oklch(0.55 0.11 30)",   /* red-bed sandstone */
+    Jurassic:   "oklch(0.65 0.06 130)",  /* sage / Morrison shale */
+    Cretaceous: "oklch(0.60 0.07 240)"   /* chalk-blue limestone */
+  }[era] || "oklch(0.4 0.03 60)";
 
   const stripeId = `stripe-${slug}`;
 

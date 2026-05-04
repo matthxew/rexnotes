@@ -161,28 +161,30 @@
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
-/* DinoKid — graphic, bold, magazine-leaning */
+/* Rex's Atlas — strata palette: bone paper, slate ink, mineral eras, amber.
+   Era colors echo the actual rocks they're named for: red-bed Triassic
+   sandstone, sage Jurassic Morrison shale, blue-white Cretaceous chalk. */
 :root {
-  --paper: oklch(0.975 0.004 220);
-  --paper-2: oklch(0.955 0.006 220);
-  --paper-3: oklch(0.93 0.008 220);
-  --ink: oklch(0.18 0.01 240);
-  --ink-2: oklch(0.36 0.01 240);
-  --ink-3: oklch(0.58 0.01 240);
-  --rule: oklch(0.88 0.006 240);
-  --rule-2: oklch(0.92 0.006 240);
+  --paper:    oklch(0.94 0.015 75);   /* bone / fossil-white */
+  --paper-2:  oklch(0.92 0.018 75);
+  --paper-3:  oklch(0.88 0.022 75);
+  --ink:      oklch(0.18 0.02 240);   /* deep slate, blue-black */
+  --ink-2:    oklch(0.36 0.02 240);
+  --ink-3:    oklch(0.55 0.015 240);
+  --rule:     oklch(0.85 0.012 75);
+  --rule-2:   oklch(0.90 0.012 75);
 
-  --accent: oklch(0.86 0.18 145);          /* fresh green */
-  --accent-ink: oklch(0.22 0.05 150);
+  --accent:     oklch(0.72 0.14 60);  /* amber — fossil-preserved-in */
+  --accent-ink: oklch(0.22 0.04 60);
 
-  /* Era — used as small text/dot only, no big washes */
-  --triassic: oklch(0.55 0.13 35);
-  --jurassic: oklch(0.5 0.12 155);
-  --cretaceous: oklch(0.45 0.13 265);
+  /* Era — minerals from the strata themselves */
+  --triassic:   oklch(0.48 0.13 30);  /* iron-oxide red-bed sandstone */
+  --jurassic:   oklch(0.62 0.07 130); /* sage / Morrison shale */
+  --cretaceous: oklch(0.55 0.08 240); /* chalk-blue limestone wash */
 
   --serif: "Instrument Serif", "Times New Roman", Times, serif;
-  --sans: "DM Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  --mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+  --sans:  "DM Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --mono:  "IBM Plex Mono", ui-monospace, Menlo, monospace;
 }
 
 * { box-sizing: border-box; }
@@ -650,7 +652,7 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
 }
 .trivia h3::before {
   content: ""; width: 14px; height: 14px;
-  background: oklch(0.45 0.08 50);
+  background: oklch(0.45 0.10 60);
   border-radius: 50%;
 }
 .trivia ul {
@@ -1234,19 +1236,19 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
 /* Single-pin amber/yellow style with pulse */
 .wm-pin { pointer-events: none; }
 .wm-pin-pulse {
-  fill: #f5a623;
+  fill: var(--accent);
   opacity: 0.18;
   transform-origin: center;
   transform-box: fill-box;
   animation: wm-pulse 2.4s ease-out infinite;
 }
 .wm-pin-halo {
-  fill: #f5a623;
+  fill: var(--accent);
   opacity: 0.32;
   transition: r 600ms cubic-bezier(.2,.7,.2,1);
 }
 .wm-pin-dot {
-  fill: #f5a623;
+  fill: var(--accent);
   stroke: var(--ink);
   stroke-width: 1.6;
   transition: r 600ms cubic-bezier(.2,.7,.2,1);
@@ -1368,7 +1370,7 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
   background: var(--ink-3);
 }
 .wm-list-item.on .wm-list-marker {
-  background: #f5a623;
+  background: var(--accent);
   box-shadow: 0 0 0 2px var(--ink);
 }
 .wm-list-name {
