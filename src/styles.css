@@ -1224,6 +1224,19 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
   text-transform: uppercase;
   pointer-events: none;
 }
+/* Anchor labels at the edges of the track so they don't spill off the
+   panel. Right-edge labels grow leftward from the dot center; left-edge
+   labels grow rightward. Middle stays centered. */
+.tl-dot[data-edge="right"] .tl-dot-name {
+  left: auto; right: 50%;
+  transform: none;
+  text-align: right;
+}
+.tl-dot[data-edge="left"] .tl-dot-name {
+  left: 50%; right: auto;
+  transform: none;
+  text-align: left;
+}
 .tl-dot:hover { opacity: 1; }
 .tl-dot.is-alongside { opacity: 1; }
 .tl-dot.is-alongside .tl-dot-marker {

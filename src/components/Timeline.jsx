@@ -52,7 +52,11 @@ function Timeline() {
       .sort((a, b) => b.time.mid - a.time.mid)
   ), []);
 
-  // Lane-pack: dots at similar x get stacked into rows so labels don't collide.
+  // Lane-pack: dots at similar x get stacked into rows so labels don't
+  // collide. Threshold is in % of track width — a dinosaur name set in
+  // 9.5px caps is roughly 11–14% wide on a typical track, so ~14% buys
+  // enough horizontal headroom that adjacent species like Parasaurolophus
+  // and Pachycephalosaurus land on different rows.
   const laid = useTMemo(() => {
     const lanes = [];
     const out = [];
@@ -60,7 +64,7 @@ function Timeline() {
       const xMid = myaToX(d.time.mid);
       let lane = -1;
       for (let i = 0; i < lanes.length; i++) {
-        if (xMid - lanes[i] > 4) { lane = i; break; }
+        if (xMid - lanes[i] > 14) { lane = i; break; }
       }
       if (lane === -1) { lane = lanes.length; lanes.push(0); }
       lanes[lane] = xMid;
@@ -184,11 +188,17 @@ function Timeline() {
             {laid.items.map(d => {
               const isAlongside = alongsideSet.has(d.slug);
               const isSelected = d.slug === selected.slug;
+              // Anchor the label so it never spills off the track: dots in
+              // the rightmost band get right-aligned labels that grow leftward,
+              // dots near the left edge get left-aligned labels that grow
+              // rightward, the middle stays centered.
+              const edge = d.xMid > 86 ? "right" : d.xMid < 14 ? "left" : "center";
               return (
                 <button
                   key={d.slug}
                   className={`tl-dot ${isAlongside ? "is-alongside" : ""} ${isSelected ? "is-selected" : ""}`}
                   data-era={d.era}
+                  data-edge={edge}
                   style={{ left: `${d.xMid}%`, top: `${d.lane * 56 + 8}px` }}
                   onClick={() => setSelectedSlug(d.slug)}
                   onDoubleClick={() => navigate(`/d/${d.slug}`)}
