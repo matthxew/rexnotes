@@ -229,24 +229,27 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
 @media (max-width: 720px) {
   .nav button { padding: 0 20px; min-height: 64px; }
 }
-.nav button:last-child { border-right: 1px solid var(--rule); }
+.nav button:last-child { border-right: none; }
 .nav button:hover { background: var(--paper-2); color: var(--ink); }
 .nav button.active { background: var(--ink); color: var(--paper); }
 
-/* nav + mode toggle share the third masthead column */
-.nav-cluster { display: flex; align-items: stretch; }
+/* Sub-bar under the masthead: hosts the global mode toggle. Always visible.
+   Right-aligned, slim, low-contrast — sits between the dense top row and
+   the page content without competing for attention. */
+.mast-sub {
+  display: flex; align-items: center; justify-content: flex-end;
+  padding: 8px 40px;
+  gap: 10px;
+}
+@media (max-width: 1024px) { .mast-sub { padding: 8px 32px; } }
+@media (max-width: 640px)  { .mast-sub { padding: 8px 22px; justify-content: flex-start; } }
 
-/* Reading-mode toggle — segmented pair, paired with a label.
-   Visually a sibling of the nav, lighter weight than the destination
-   buttons because it's a control, not a destination. */
 .mode-toggle {
   display: flex; align-items: center; gap: 8px;
-  padding: 0 20px;
-  height: 100%;
   font-family: var(--sans);
   font-size: 11px;
   text-transform: uppercase;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.14em;
   color: var(--ink-3);
 }
 .mode-label { color: var(--ink-3); white-space: nowrap; }
@@ -254,8 +257,8 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
   font-family: var(--sans);
   font-size: 11px;
   text-transform: uppercase;
-  letter-spacing: 0.12em;
-  padding: 6px 10px;
+  letter-spacing: 0.1em;
+  padding: 5px 10px;
   border: 1px solid var(--rule);
   background: var(--paper);
   color: var(--ink-2);
@@ -268,33 +271,6 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
   background: var(--ink);
   color: var(--paper);
   border-color: var(--ink);
-}
-@media (max-width: 720px) {
-  .nav-cluster { flex-wrap: wrap; }
-  .mode-toggle { padding: 8px 22px; border-top: 1px solid var(--rule); }
-}
-
-/* second row of masthead: filters */
-.mast-filters {
-  display: flex; align-items: center; gap: 0;
-  padding: 0;
-  font-family: var(--sans); font-size: 11px;
-  text-transform: uppercase; letter-spacing: 0.14em;
-  color: var(--ink-3);
-  overflow-x: auto;
-}
-.mast-filters .group {
-  display: flex; align-items: center; gap: 10px;
-  padding: 16px 32px;
-  border-right: 1px solid var(--rule);
-}
-@media (max-width: 720px) {
-  .mast-filters .group { padding: 14px 22px; }
-}
-.mast-filters .group:last-child { border-right: none; }
-.mast-filters .group-label {
-  color: var(--ink-3);
-  margin-right: 4px;
 }
 .chip {
   font-family: var(--sans); font-size: 12px;
@@ -345,15 +321,57 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
   text-wrap: pretty;
 }
 
-/* ——— results meta ——— */
+/* ——— results meta — count + inline filters + clear ——— */
 .results-meta {
-  padding: 18px 0 14px;
-  display: flex; justify-content: space-between; align-items: baseline;
+  padding: 18px 0 16px;
+  display: flex; flex-wrap: wrap; align-items: center;
+  gap: 14px;
   font-family: var(--sans); font-size: 11px;
   text-transform: uppercase; letter-spacing: 0.12em;
   color: var(--ink-3);
 }
 .results-meta strong { color: var(--ink); font-weight: 500; }
+.results-meta .rm-count { white-space: nowrap; }
+.results-meta .rm-sep { color: var(--ink-3); opacity: 0.5; }
+.results-meta .rm-filter {
+  display: flex; align-items: center; flex-wrap: wrap; gap: 6px;
+}
+.results-meta .rm-label {
+  color: var(--ink-3);
+  margin-right: 4px;
+}
+.results-meta .rm-clear {
+  margin-left: auto;
+  color: var(--ink-2);
+  letter-spacing: 0.12em;
+  padding: 4px 6px;
+}
+.results-meta .rm-clear:hover { color: var(--ink); }
+
+/* small chip used inline with the count — quieter than the .chip used elsewhere */
+.chip-sm {
+  font-family: var(--sans); font-size: 10.5px;
+  text-transform: uppercase; letter-spacing: 0.1em;
+  color: var(--ink-2);
+  padding: 4px 9px;
+  border: 1px solid var(--rule);
+  background: var(--paper);
+  border-radius: 999px;
+  white-space: nowrap;
+  transition: background 140ms ease, color 140ms ease, border-color 140ms ease;
+}
+.chip-sm:hover { color: var(--ink); border-color: var(--ink); }
+.chip-sm.on {
+  background: var(--ink);
+  color: var(--paper);
+  border-color: var(--ink);
+}
+
+@media (max-width: 640px) {
+  .results-meta { gap: 10px; }
+  .results-meta .rm-sep { display: none; }
+  .results-meta .rm-clear { margin-left: 0; }
+}
 
 /* ——— grid ——— */
 .grid {

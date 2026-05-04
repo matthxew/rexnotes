@@ -60,7 +60,7 @@ function ModeToggle({ mode, setMode }) {
   );
 }
 
-function Masthead({ route, query, setQuery, eras, diets, toggleEra, toggleDiet, showFilters, mode, setMode }) {
+function Masthead({ route, query, setQuery, mode, setMode }) {
   return (
     <header className="masthead">
       <div className="shell masthead-row">
@@ -79,40 +79,16 @@ function Masthead({ route, query, setQuery, eras, diets, toggleEra, toggleDiet, 
           />
           {query ? <button className="clear" onClick={() => setQuery("")}>Clear</button> : null}
         </div>
-        <div className="nav-cluster">
-          <nav className="nav">
-            <button className={route.name === "home" ? "active" : ""} onClick={() => navigate("/")}>Index</button>
-            <button className={route.name === "timeline" ? "active" : ""} onClick={() => navigate("/timeline")}>Timeline</button>
-            <button className={route.name === "map" ? "active" : ""} onClick={() => navigate("/map")}>Map</button>
-            <button className={route.name === "about" ? "active" : ""} onClick={() => navigate("/about")}>About</button>
-          </nav>
-          <ModeToggle mode={mode} setMode={setMode} />
-        </div>
+        <nav className="nav">
+          <button className={route.name === "home" ? "active" : ""} onClick={() => navigate("/")}>Index</button>
+          <button className={route.name === "timeline" ? "active" : ""} onClick={() => navigate("/timeline")}>Timeline</button>
+          <button className={route.name === "map" ? "active" : ""} onClick={() => navigate("/map")}>Map</button>
+          <button className={route.name === "about" ? "active" : ""} onClick={() => navigate("/about")}>About</button>
+        </nav>
       </div>
-      {showFilters && (
-        <div className="shell mast-filters">
-          <div className="group">
-            <span className="group-label">Era</span>
-            {ERAS.map(e => (
-              <button key={e}
-                className={`chip ${eras.has(e) ? "on" : ""}`}
-                onClick={() => toggleEra(e)}>
-                {e}
-              </button>
-            ))}
-          </div>
-          <div className="group">
-            <span className="group-label">Diet</span>
-            {DIETS.map(d => (
-              <button key={d}
-                className={`chip ${diets.has(d) ? "on" : ""}`}
-                onClick={() => toggleDiet(d)}>
-                {d}
-              </button>
-            ))}
-          </div>
-        </div>
-      )}
+      <div className="shell mast-sub">
+        <ModeToggle mode={mode} setMode={setMode} />
+      </div>
     </header>
   );
 }
@@ -127,7 +103,7 @@ function Footer() {
   );
 }
 
-function Home({ query, eras, diets, clearAll, mode }) {
+function Home({ query, eras, diets, clearAll, mode, toggleEra, toggleDiet }) {
   const filtered = useMemo(() => {
     const needle = query.trim().toLowerCase();
     return window.DINOSAURS.filter(d => {
@@ -157,9 +133,27 @@ function Home({ query, eras, diets, clearAll, mode }) {
       </section>
 
       <div className="shell results-meta">
-        <div><strong>{filtered.length}</strong> of {window.DINOSAURS.length} dinosaurs</div>
+        <div className="rm-count"><strong>{filtered.length}</strong> of {window.DINOSAURS.length} dinosaurs</div>
+        <div className="rm-sep" aria-hidden="true">·</div>
+        <div className="rm-filter">
+          <span className="rm-label">Era</span>
+          {ERAS.map(e => (
+            <button key={e}
+              className={`chip-sm ${eras.has(e) ? "on" : ""}`}
+              onClick={() => toggleEra(e)}>{e}</button>
+          ))}
+        </div>
+        <div className="rm-sep" aria-hidden="true">·</div>
+        <div className="rm-filter">
+          <span className="rm-label">Diet</span>
+          {DIETS.map(d => (
+            <button key={d}
+              className={`chip-sm ${diets.has(d) ? "on" : ""}`}
+              onClick={() => toggleDiet(d)}>{d}</button>
+          ))}
+        </div>
         {anyFilter ? (
-          <button onClick={clearAll} style={{ color: "var(--ink-2)", letterSpacing: "0.12em" }}>Clear filters ✕</button>
+          <button className="rm-clear" onClick={clearAll}>Clear ✕</button>
         ) : null}
       </div>
 
@@ -347,12 +341,9 @@ function App() {
       <Masthead
         route={route}
         query={query} setQuery={setQuery}
-        eras={eras} diets={diets}
-        toggleEra={toggleEra} toggleDiet={toggleDiet}
-        showFilters={route.name === "home"}
         mode={mode} setMode={setMode}
       />
-      {route.name === "home" && <Home query={query} eras={eras} diets={diets} clearAll={clearAll} mode={mode} />}
+      {route.name === "home" && <Home query={query} eras={eras} diets={diets} clearAll={clearAll} mode={mode} toggleEra={toggleEra} toggleDiet={toggleDiet} />}
       {route.name === "timeline" && <window.Timeline />}
       {route.name === "map" && <window.WorldMap />}
       {route.name === "detail" && <Detail slug={route.slug} />}
