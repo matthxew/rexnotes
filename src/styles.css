@@ -923,38 +923,7 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
 
 /* ——— home grid · per mode ——— */
 
-/* Grown-up issue line — small editorial caps above the hero headline.
-   Tells you what 'volume' you're in, the way a real magazine masthead does. */
-.hero-issue {
-  font-family: var(--sans); font-size: 11px;
-  text-transform: uppercase; letter-spacing: 0.18em;
-  color: var(--ink-3);
-  margin-bottom: 18px;
-  padding-bottom: 10px;
-  border-bottom: 1px solid var(--rule);
-  max-width: max-content;
-}
-
-/* Plate number, top-left corner of the card — only visible in grown-up
-   mode. Sets the field-guide "specimen entry" frame. */
-.card-plate {
-  position: absolute;
-  top: 18px; right: 18px;
-  font-family: var(--sans); font-size: 10px;
-  text-transform: uppercase; letter-spacing: 0.16em;
-  color: var(--ink-3);
-}
-
-/* Pronunciation line shown under the name in grown-up cards. Tied to the
-   detail-page treatment so the field-guide voice carries from index in. */
-.card-pronounce {
-  font-family: var(--sans); font-size: 10.5px;
-  text-transform: uppercase; letter-spacing: 0.14em;
-  color: var(--ink-3);
-  margin: 0;
-}
-
-/* Length badge tucked into meta-row, grown-up only */
+/* Length badge tucked into the meta-row, grown-up only */
 .card-length { color: var(--ink-3); }
 
 /* Grown-up mode: denser, 5-up specimen index */
