@@ -160,11 +160,9 @@ function WorldMap() {
 
   const countryPaths = useMMemo(() => {
     if (!worldData || !geoPath) return [];
-    return worldData.features.map(f => {
-      const name = f.properties.name;
-      const continent = COUNTRY_CONTINENT[name] || guessContinentFromCentroid(f);
-      return { name, continent, d: geoPath(f) };
-    }).filter(c => c.d);
+    return worldData.features
+      .map(f => ({ name: f.properties.name, d: geoPath(f) }))
+      .filter(c => c.d);
   }, [worldData, geoPath]);
 
   const activeCountry = selected.loc.country;
@@ -229,7 +227,6 @@ function WorldMap() {
                     key={i}
                     d={c.d}
                     className={`wm-continent ${activeCountry === c.name ? "is-active-country" : ""}`}
-                    data-continent={c.continent}
                   />
                 ))}
               </g>
@@ -297,21 +294,6 @@ function WorldMap() {
       </div>
     </main>
   );
-}
-
-function guessContinentFromCentroid(feature) {
-  if (!window.d3) return "NA";
-  const [lng, lat] = d3.geoCentroid(feature);
-  if (lat < -60) return "AN";
-  if (lat < 0 && lng > 110 && lng < 180) return "AU";
-  if (lng > -30 && lng < 60 && lat < 35) {
-    if (lat < 35 && lng > -20 && lng < 55) return "AF";
-  }
-  if (lat > 35 && lng > -25 && lng < 60) return "EU";
-  if (lng > 25 && lng < 180 && lat > -10) return "AS";
-  if (lng < -30 && lat > 12) return "NA";
-  if (lng < -30 && lat <= 12) return "SA";
-  return "NA";
 }
 
 window.WorldMap = WorldMap;

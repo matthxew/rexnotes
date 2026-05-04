@@ -1025,9 +1025,6 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
 }
 .tl-tab:hover { color: var(--ink); border-color: var(--ink); }
 .tl-tab.on { background: var(--ink); color: var(--paper); border-color: var(--ink); }
-.tl-dot-name-OLD {
-  display: none;
-}
 
 .tl-ticks {
   position: absolute;
@@ -1092,28 +1089,6 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
 .tl-scrub-handle[data-era="Jurassic"]   { background: var(--jurassic); }
 .tl-scrub-handle[data-era="Cretaceous"] { background: var(--cretaceous); }
 
-/* Bottom callout */
-.tl-callout-bottom {
-  margin-top: 28px;
-  background: var(--paper-2);
-  border-radius: 14px;
-  padding: 22px 28px;
-  display: grid;
-  grid-template-columns: auto auto 1fr auto;
-  gap: 32px;
-  align-items: end;
-}
-@media (max-width: 760px) {
-  .tl-callout-bottom { grid-template-columns: 1fr 1fr; gap: 18px 24px; }
-  .tl-callout-bottom .tl-open { grid-column: 1 / -1; justify-self: stretch; text-align: center; }
-}
-.tl-callout-era {
-  font-family: var(--serif); font-style: italic;
-  font-size: 26px; letter-spacing: -0.02em;
-}
-.tl-callout-era[data-era="Triassic"]   { color: var(--triassic); }
-.tl-callout-era[data-era="Jurassic"]   { color: var(--jurassic); }
-.tl-callout-era[data-era="Cretaceous"] { color: var(--cretaceous); }
 .tl-callout-when, .tl-callout-where {
   font-family: var(--sans); font-size: 16px; color: var(--ink);
   margin-top: 4px;
