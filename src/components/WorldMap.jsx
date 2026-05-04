@@ -240,7 +240,7 @@ function WorldMap() {
 
               {!worldData && (
                 <text x={VW/2} y={VH/2} textAnchor="middle"
-                      style={{fontFamily: "var(--mono)", fontSize: "14px", fill: "var(--ink-3)"}}>
+                      style={{fontFamily: "var(--sans)", fontSize: "14px", letterSpacing: "0.06em", textTransform: "uppercase", fill: "var(--ink-3)"}}>
                   Loading map…
                 </text>
               )}
