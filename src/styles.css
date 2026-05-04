@@ -923,8 +923,6 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
 
 /* ——— home grid · per mode ——— */
 
-/* Length badge tucked into the meta-row, grown-up only */
-.card-length { color: var(--ink-3); }
 
 /* Grown-up mode: denser, 5-up specimen index */
 [data-mode="grownup"] .grid { grid-template-columns: repeat(5, 1fr); }
@@ -1082,23 +1080,59 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
 .tl-dots { overflow: visible; }
 .tl-bands {
   position: relative;
-  height: 32px;
-  margin-bottom: 16px;
+  height: 38px;
+  margin-bottom: 18px;
+  border: 1px solid var(--rule);
+  border-radius: 2px;
+  overflow: hidden;
+  background: var(--paper-2);
 }
+/* Strata, not pills: square edges, layered backgrounds.
+   Each band carries a faint horizontal grain in its era hue so the row
+   reads as rock layers rather than coloured chips. */
 .tl-band {
   position: absolute; top: 0; bottom: 0;
   display: flex; align-items: center;
-  padding: 0 12px;
-  border-radius: 6px;
+  padding: 0 14px;
+  border-radius: 0;
+  border-right: 1px solid var(--rule);
 }
-.tl-band[data-era="Triassic"]   { background: color-mix(in oklab, var(--triassic) 22%, var(--paper)); }
-.tl-band[data-era="Jurassic"]   { background: color-mix(in oklab, var(--jurassic) 22%, var(--paper)); }
-.tl-band[data-era="Cretaceous"] { background: color-mix(in oklab, var(--cretaceous) 22%, var(--paper)); }
+.tl-band:last-child { border-right: none; }
+.tl-band[data-era="Triassic"] {
+  background:
+    repeating-linear-gradient(
+      0deg,
+      color-mix(in oklab, var(--triassic) 24%, var(--paper)) 0 3px,
+      color-mix(in oklab, var(--triassic) 16%, var(--paper)) 3px 6px
+    );
+}
+.tl-band[data-era="Jurassic"] {
+  background:
+    repeating-linear-gradient(
+      0deg,
+      color-mix(in oklab, var(--jurassic) 24%, var(--paper)) 0 3px,
+      color-mix(in oklab, var(--jurassic) 16%, var(--paper)) 3px 6px
+    );
+}
+.tl-band[data-era="Cretaceous"] {
+  background:
+    repeating-linear-gradient(
+      0deg,
+      color-mix(in oklab, var(--cretaceous) 24%, var(--paper)) 0 3px,
+      color-mix(in oklab, var(--cretaceous) 16%, var(--paper)) 3px 6px
+    );
+}
 .tl-band-label {
   font-family: var(--sans); font-size: 11px;
   text-transform: uppercase; letter-spacing: 0.16em;
   color: var(--ink);
   font-weight: 500;
+  background: var(--paper);
+  padding: 2px 8px;
+  border: 1px solid var(--rule);
+  border-radius: 2px;
+  position: relative;
+  z-index: 1;
 }
 
 .tl-dots {

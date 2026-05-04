@@ -171,7 +171,6 @@ function Home({ query, eras, diets, clearAll, mode, toggleEra, toggleDiet }) {
                   <span>{d.era}</span>
                   <span>·</span>
                   <span>{d.diet}</span>
-                  <span className="card-length">· {d.lengthM} m</span>
                 </div>
                 <h3>{d.name}</h3>
                 <p className="teaser">{d.teaser}</p>
