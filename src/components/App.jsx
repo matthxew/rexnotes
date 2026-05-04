@@ -117,11 +117,20 @@ function Home({ query, eras, diets, clearAll, mode, toggleEra, toggleDiet }) {
     });
   }, [query, eras, diets]);
 
+  // Stable plate number per species: index in the curated DINOSAURS order,
+  // unaffected by filter or sort. Field-guide convention is two-digit.
+  const plateOf = useMemo(() => {
+    const m = new Map();
+    window.DINOSAURS.forEach((d, i) => m.set(d.slug, String(i + 1).padStart(2, "0")));
+    return m;
+  }, []);
+
   const anyFilter = query || eras.size || diets.size;
 
   return (
     <main className="fade-in">
       <section className="shell hero">
+        <div className="hero-issue only-grownup">Vol. I · {window.DINOSAURS.length} species · Spring 2026</div>
         <h1>
           Dinosaurs<br/>
           {mode === "kid" ? (
@@ -163,6 +172,7 @@ function Home({ query, eras, diets, clearAll, mode, toggleEra, toggleDiet }) {
           <div className="grid stagger">
             {filtered.map(d => (
               <button key={d.slug} className="card" onClick={() => navigate(`/d/${d.slug}`)}>
+                <span className="card-plate only-grownup">No. {plateOf.get(d.slug)}</span>
                 <div className="card-illus">
                   <window.Silhouette slug={d.slug} era={d.era} />
                 </div>
@@ -171,9 +181,11 @@ function Home({ query, eras, diets, clearAll, mode, toggleEra, toggleDiet }) {
                   <span>{d.era}</span>
                   <span>·</span>
                   <span>{d.diet}</span>
+                  <span className="card-length only-grownup">· {d.lengthM} m</span>
                 </div>
                 <h3>{d.name}</h3>
-                <p className="teaser">{d.teaser}</p>
+                <p className="card-pronounce only-grownup">{d.pronunciation}</p>
+                <p className="teaser only-kid">{d.teaser}</p>
                 <span className="arrow">→</span>
               </button>
             ))}
