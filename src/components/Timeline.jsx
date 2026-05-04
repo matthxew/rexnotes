@@ -79,9 +79,15 @@ function Timeline() {
   const barLeftPct = Math.max(0, Math.min(100 - BAR_WIDTH_PCT, myaToX(scrub) - BAR_WIDTH_PCT / 2));
   const barRightPct = barLeftPct + BAR_WIDTH_PCT;
 
-  // Dinosaurs inside the bar (by visual X position)
+  // Dinosaurs whose visual X-range overlaps the bar. Overlap (not midpoint)
+  // so a species' whole lifespan is matched — e.g. Triceratops (68–66 mya)
+  // is captured at any scrub between those years.
   const inBar = useTMemo(() => {
-    const list = laid.items.filter(d => d.xMid >= barLeftPct - 0.1 && d.xMid <= barRightPct + 0.1);
+    const list = laid.items.filter(d => {
+      const dxLeft = myaToX(d.time.start);  // older mya → smaller x
+      const dxRight = myaToX(d.time.end);   // younger mya → larger x
+      return dxRight >= barLeftPct - 0.1 && dxLeft <= barRightPct + 0.1;
+    });
     if (list.length === 0) {
       // fallback: nearest single dinosaur
       let best = null, bestDist = Infinity;
@@ -129,6 +135,9 @@ function Timeline() {
 
   useTEffect(() => {
     const onKey = (e) => {
+      // Don't hijack arrow keys when the user is typing in the search bar.
+      const t = e.target;
+      if (t && (t.tagName === "INPUT" || t.tagName === "TEXTAREA" || t.isContentEditable)) return;
       if (e.key === "ArrowLeft")  setScrub(s => Math.min(TL_START, s + 2));
       if (e.key === "ArrowRight") setScrub(s => Math.max(TL_END,   s - 2));
     };

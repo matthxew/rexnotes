@@ -69,8 +69,9 @@ window.generateColoringPDF = function generateColoringPDF(dino) {
   const safe = (s) => s.replace(/[^\x20-\x7E]/g, "");
 
   const title = safe(dino.name).toUpperCase();
-  const sub = safe(`Coloring page · DinoSite Vol. 1`);
+  const sub = safe(`Coloring page · Rex's Atlas`);
   const credit = safe(`${dino.pronunciation} · ${dino.era}`);
+  const footer = safe(`Rex's Atlas  ·  print at 100% scale  ·  best on cardstock`);
 
   const content = `
 q
@@ -108,7 +109,7 @@ BT
 /F2 9 Tf
 0.6 0.6 0.6 rg
 72 44 Td
-(dinosite.example  ·  print at 100% scale  ·  best on cardstock) Tj
+(${footer}) Tj
 ET
 `;
 

@@ -108,7 +108,17 @@ function WorldMap() {
     return items.filter(d => eraFilter.has(d.era));
   }, [items, eraFilter]);
 
-  const selected = items.find(d => d.slug === selectedSlug) || items[0];
+  // Keep the selection inside the filtered set: if an era filter excludes
+  // the current pick, jump to the first match instead of stranding the
+  // map on a dinosaur the sidebar can't show.
+  useMEffect(() => {
+    if (filtered.length === 0) return;
+    if (!filtered.some(d => d.slug === selectedSlug)) {
+      setSelectedSlug(filtered[0].slug);
+    }
+  }, [filtered, selectedSlug]);
+
+  const selected = filtered.find(d => d.slug === selectedSlug) || filtered[0] || items[0];
 
   // Compute target viewBox: zoomed-in around selected pin (≈ 280×140 viewport), or full world
   const targetVB = useMMemo(() => {
