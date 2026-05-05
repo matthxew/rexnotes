@@ -1,9 +1,22 @@
-/* SVG silhouette placeholders. These are abstract striped shapes that read as
-   "dinosaur shape goes here," not anatomically detailed. Real illustrations
-   will replace them by writing /illustrations/<slug>.svg of the same aspect.
-   Each silhouette returns an inline SVG with a striped fill pattern. */
+/* Renders a species illustration if one has been bundled, otherwise falls
+   back to an abstract striped silhouette. Real illustrations are picked
+   up automatically: drop a PNG/JPG/SVG at
+   src/assets/illustrations/<slug>.<ext> and run pack.js — the build
+   exposes it via window.__resources["illustration:<slug>"]. */
 
 window.Silhouette = function Silhouette({ slug, era, label = "illustration" }) {
+  const realUrl = window.__resources?.["illustration:" + slug];
+  if (realUrl) {
+    return (
+      <img
+        src={realUrl}
+        alt={slug}
+        className="dino-illus"
+        style={{ width: "100%", height: "100%", objectFit: "contain" }}
+      />
+    );
+  }
+
   // Pick one of a few abstract body silhouettes by sizeBucket/diet hint.
   const bodies = {
     huge: "M 40 220 Q 60 110 200 130 Q 360 110 460 90 Q 540 80 560 130 Q 580 160 540 175 Q 520 178 500 175 L 470 230 Q 460 245 445 240 L 430 235 L 415 220 Q 360 232 270 230 L 250 250 Q 240 260 225 252 L 215 240 Q 130 240 90 235 Q 50 230 40 220 Z",

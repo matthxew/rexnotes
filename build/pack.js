@@ -146,6 +146,21 @@ function main() {
   const refCount = verify(template, manifest);
 
   const extResources = [{ id: 'worldAtlas', uuid: map['assets/world-atlas.json'] }];
+
+  // Auto-expose every species illustration as an ext_resource keyed by
+  // "illustration:<slug>" so the Silhouette component can look them up
+  // at runtime via window.__resources. Drop a PNG/JPG/SVG into
+  // src/assets/illustrations/<slug>.<ext> and it appears on next pack.
+  const illusDir = path.join(SRC, 'assets/illustrations');
+  if (fs.existsSync(illusDir)) {
+    for (const f of fs.readdirSync(illusDir)) {
+      const slug = f.replace(/\.(png|jpg|jpeg|svg|webp)$/i, '');
+      if (slug === f) continue; // not a recognised image extension
+      const key = 'assets/illustrations/' + f;
+      if (!map[key]) continue; // not yet registered (will be on a re-run)
+      extResources.push({ id: 'illustration:' + slug, uuid: map[key] });
+    }
+  }
   const loader = fs.readFileSync(path.join(BUILD, 'loader.js'), 'utf8').trimEnd();
   const shell = fs.readFileSync(path.join(BUILD, 'shell.html'), 'utf8');
 
