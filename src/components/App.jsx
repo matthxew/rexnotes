@@ -25,6 +25,41 @@ function useHashRoute() {
 }
 function navigate(path) { location.hash = path; window.scrollTo({ top: 0, behavior: "instant" }); }
 
+// Mode is the picture-book vs field-guide toggle. Persisted in localStorage
+// and reflected as a body data-attribute so any selector can opt in via
+// [data-mode="kid"] or [data-mode="grownup"].
+function useMode() {
+  const [mode, _setMode] = useState(() => {
+    try { return localStorage.getItem("rexatlas-mode") || "kid"; }
+    catch { return "kid"; }
+  });
+  useEffect(() => {
+    document.documentElement.dataset.mode = mode;
+    try { localStorage.setItem("rexatlas-mode", mode); } catch {}
+  }, [mode]);
+  return [mode, _setMode];
+}
+
+function ModeToggle({ mode, setMode }) {
+  return (
+    <div className="mode-toggle" role="group" aria-label="Reading mode">
+      <span className="mode-label">Read as</span>
+      <button
+        className={`mode-btn ${mode === "kid" ? "on" : ""}`}
+        onClick={() => setMode("kid")}
+        aria-pressed={mode === "kid"}>
+        Kid
+      </button>
+      <button
+        className={`mode-btn ${mode === "grownup" ? "on" : ""}`}
+        onClick={() => setMode("grownup")}
+        aria-pressed={mode === "grownup"}>
+        Grown-up
+      </button>
+    </div>
+  );
+}
+
 /* Three-toed theropod footprint. Iconic dinosaur mark — kids and adults
    both read it as "dinosaur" instantly. Filled silhouette of three claws
    plus a heel pad, slightly off-axis so it feels stamped, not centered. */
@@ -88,7 +123,7 @@ const NAV_ICONS = {
   ),
 };
 
-function Masthead({ route, query, setQuery }) {
+function Masthead({ route, query, setQuery, mode, setMode }) {
   return (
     <header className="masthead">
       <div className="shell masthead-row">
@@ -128,6 +163,9 @@ function Masthead({ route, query, setQuery }) {
           </button>
         </nav>
       </div>
+      <div className="shell mast-sub">
+        <ModeToggle mode={mode} setMode={setMode} />
+      </div>
     </header>
   );
 }
@@ -142,7 +180,7 @@ function Footer() {
   );
 }
 
-function Home({ query, eras, diets, clearAll, toggleEra, toggleDiet }) {
+function Home({ query, eras, diets, clearAll, mode, toggleEra, toggleDiet }) {
   const filtered = useMemo(() => {
     const needle = query.trim().toLowerCase();
     return window.DINOSAURS.filter(d => {
@@ -164,7 +202,12 @@ function Home({ query, eras, diets, clearAll, toggleEra, toggleDiet }) {
         <h1>
           <span className="hero-title">Dinosaurs</span>
           <span className="hero-sub">
-            For <span className="accent">kids and grown-ups</span>.
+            For{" "}
+            {mode === "kid" ? (
+              <><span className="accent">kids</span> and <em>grown-ups.</em></>
+            ) : (
+              <><em>kids</em> and <span className="accent">grown-ups.</span></>
+            )}
           </span>
         </h1>
       </section>
@@ -202,7 +245,7 @@ function Home({ query, eras, diets, clearAll, toggleEra, toggleDiet }) {
                 <div className="card-illus">
                   <window.Silhouette slug={d.slug} era={d.era} />
                 </div>
-                <div className="meta-row">
+                <div className="meta-row only-grownup">
                   <span className="era-dot" data-era={d.era}></span>
                   <span>{d.era}</span>
                   <span>·</span>
@@ -243,14 +286,20 @@ function Detail({ slug }) {
               <strong>{dino.pronunciation}</strong>
             </div>
           </div>
-          <p className="d-when">{dino.kidTime}</p>
+          <p className="d-when only-kid">{dino.kidTime}</p>
+          <div className="d-era-badge only-kid">
+            <span className="era-dot" data-era={dino.era}></span>
+            <span>{dino.era}</span>
+            <span>·</span>
+            <span>{dino.diet}</span>
+          </div>
         </section>
 
         <section className="detail-content">
           <div className="detail-illus">
             <window.Silhouette slug={dino.slug} era={dino.era} label="full illustration" />
           </div>
-          <div>
+          <div className="only-grownup">
             <div className="detail-meta-grid">
               <div className="meta-item">
                 <div className="meta-label">Era</div>
@@ -277,13 +326,12 @@ function Detail({ slug }) {
         </section>
 
         <section className="facts with-rule">
-          <div className="fact-block kids">
-            <div className="fact-label" data-num="01">For kids</div>
+          <div className="fact-block kids only-kid">
             <h2>What it was like.</h2>
             <p className="fact-body">{dino.forKids}</p>
           </div>
-          <div className="fact-block parents">
-            <div className="fact-label" data-num="02">For grown-ups</div>
+          <div className="fact-block parents only-grownup">
+            <div className="fact-label" data-num="02">For Grown-ups</div>
             <h2>What we know now.</h2>
             <p className="fact-body">{dino.forParents}</p>
           </div>
@@ -350,6 +398,7 @@ function About() {
 
 function App() {
   const route = useHashRoute();
+  const [mode, setMode] = useMode();
   const [query, setQuery] = useState("");
   const [eras, setEras] = useState(new Set());
   const [diets, setDiets] = useState(new Set());
@@ -375,8 +424,9 @@ function App() {
       <Masthead
         route={route}
         query={query} setQuery={setQuery}
+        mode={mode} setMode={setMode}
       />
-      {route.name === "home" && <Home query={query} eras={eras} diets={diets} clearAll={clearAll} toggleEra={toggleEra} toggleDiet={toggleDiet} />}
+      {route.name === "home" && <Home query={query} eras={eras} diets={diets} clearAll={clearAll} mode={mode} toggleEra={toggleEra} toggleDiet={toggleDiet} />}
       {route.name === "timeline" && <window.Timeline />}
       {route.name === "map" && <window.WorldMap />}
       {route.name === "detail" && <Detail slug={route.slug} />}
