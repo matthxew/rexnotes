@@ -55,43 +55,25 @@
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
-/* latin-ext — Fraunces variable, soft axis. Weighty old-book serif with
-   warmth. wght 100–900, opsz 9–144, soft 0–100. Italics intentionally
-   not loaded; the system avoids editorial italic. */
+/* latin-ext — Bevan. Heavy display slab/serif inspired by 19th-century
+   American Antiques. The "DINOSAURS book cover" face. Single weight 400,
+   used for every display headline, the brand "ATLAS", species names, and
+   the search input. Body uses go to DM Sans. */
 @font-face {
-  font-family: 'Fraunces';
+  font-family: 'Bevan';
   font-style: normal;
-  font-weight: 100 900;
+  font-weight: 400;
   font-display: swap;
-  src: url("assets/fonts/fraunces-latin-ext.woff2") format('woff2-variations');
+  src: url("assets/fonts/bevan-latin-ext.woff2") format('woff2');
   unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
 /* latin */
 @font-face {
-  font-family: 'Fraunces';
-  font-style: normal;
-  font-weight: 100 900;
-  font-display: swap;
-  src: url("assets/fonts/fraunces-latin.woff2") format('woff2-variations');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-}
-
-/* latin-ext */
-@font-face {
-  font-family: 'Old Standard TT';
+  font-family: 'Bevan';
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url("assets/fonts/old-standard-tt-latin-ext-normal.woff2") format('woff2');
-  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
-}
-/* latin */
-@font-face {
-  font-family: 'Old Standard TT';
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url("assets/fonts/old-standard-tt-latin-normal.woff2") format('woff2');
+  src: url("assets/fonts/bevan-latin.woff2") format('woff2');
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
@@ -116,10 +98,11 @@
   --jurassic:   oklch(0.62 0.07 130); /* sage / Morrison shale */
   --cretaceous: oklch(0.55 0.08 240); /* chalk-blue limestone wash */
 
-  --serif:   "Fraunces", "Times New Roman", Times, serif;
-  --sans:    "DM Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  --display: "Old Standard TT", "Times New Roman", Times, serif; /* species names — roman */
-  --hand:    "Caveat", "Bradley Hand", cursive;                  /* handwritten register */
+  --serif:   "Bevan", "Bookman Old Style", "Georgia", serif; /* heavy display — every h1, brand "ATLAS", species names, search */
+  --sans:    "DM Sans", "Helvetica Neue", Helvetica, Arial, sans-serif; /* everything that isn't display */
+  --hand:    "Caveat", "Bradley Hand", cursive;                          /* handwritten register: brand "Rex's", hero highlight, active toggle */
+  /* legacy alias — components still reference --display in a few places */
+  --display: var(--serif);
 }
 
 * { box-sizing: border-box; }
@@ -176,9 +159,9 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
   .masthead-row .mast-search { grid-column: 1 / -1; order: 3; border-top: 1px solid var(--rule); padding: 6px 22px; }
 }
 .masthead-row > * { display: flex; align-items: center; }
-/* Brand: two-font wordmark. "Rex's" handwritten (personal, kid),
-   "Atlas" all-caps Fraunces with SOFT 0 + heavy weight (atlas-cover,
-   monumental). The tension between the two registers is the whole point. */
+/* Brand: two-font wordmark. "Rex's" handwritten Caveat (personal),
+   "ATLAS" all-caps Bevan (heavy display slab — book-spine, monumental).
+   Tension between the two registers is the whole point. */
 .brand {
   padding: 14px 24px 14px 0;
   white-space: nowrap;
@@ -205,8 +188,7 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
 }
 .brand-atlas {
   font-family: var(--serif);
-  font-weight: 800;
-  font-variation-settings: "opsz" 144, "SOFT" 0;
+  font-weight: 400;
   font-size: 22px;
   line-height: 1;
   text-transform: uppercase;
@@ -373,41 +355,54 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
 
 /* ——— hero: minimal, no volume copy ——— */
 .hero {
-  padding: 56px 0 36px;
+  padding: 56px 0 40px;
   border-bottom: 1px solid var(--rule);
 }
-.hero h1 {
+.hero h1 { margin: 0; padding: 0; }
+/* DINOSAURS — heavy display all-caps. Stacks the cover composition:
+   big book-title up top, sub-line in lighter sans below. */
+.hero-title {
+  display: block;
   font-family: var(--serif);
-  font-weight: 720;
-  font-variation-settings: "opsz" 144, "SOFT" 70;
-  font-size: clamp(40px, 5.6vw, 76px);
-  line-height: 1.02;
-  letter-spacing: -0.02em;
-  margin: 0;
-  padding-bottom: 0.08em;
-  text-wrap: balance;
+  font-weight: 400;
+  font-size: clamp(56px, 10.5vw, 132px);
+  line-height: 0.92;
+  letter-spacing: -0.005em;
+  text-transform: uppercase;
   color: var(--ink);
+  text-wrap: balance;
 }
-/* The highlighted word goes handwritten — same role across hero, timeline,
-   map, and the active reading-mode toggle. Amber stays as a stamped block
-   underneath, so the script reads as "scribbled over the highlight". */
+.hero-sub {
+  display: block;
+  font-family: var(--sans);
+  font-weight: 500;
+  font-size: clamp(20px, 2.4vw, 32px);
+  line-height: 1.3;
+  letter-spacing: -0.005em;
+  margin-top: 24px;
+  color: var(--ink-2);
+}
+.hero-sub em { font-style: italic; font-weight: 400; color: var(--ink); }
+
+/* Highlighted word — handwritten, no amber block underneath. The amber
+   has stepped down to a hand-drawn-feel underline so the title doesn't
+   double up the same pill treatment the mode toggle already uses. */
 .hero h1 .accent,
 .tl-header h1 .tl-accent,
 .wm-header h1 .wm-accent {
   font-family: var(--hand);
   font-weight: 600;
-  background: var(--accent); color: var(--accent-ink);
-  padding: 0 0.16em;
+  background: none;
+  color: var(--ink);
+  font-size: 1.45em;
+  line-height: 0.85;
   letter-spacing: 0;
-  box-shadow: 3px 3px 0 0 color-mix(in oklab, var(--accent-ink) 14%, transparent);
-}
-.hero .dek {
-  margin-top: 36px;
-  max-width: 60ch;
-  font-size: 17px;
-  line-height: 1.55;
-  color: var(--ink-2);
-  text-wrap: pretty;
+  padding: 0 0.04em;
+  margin: 0 0.04em;
+  text-decoration: underline solid var(--accent);
+  text-decoration-thickness: 0.09em;
+  text-underline-offset: 0.06em;
+  text-decoration-skip-ink: none;
 }
 
 /* ——— results meta — count + inline filters + clear ——— */
@@ -568,7 +563,7 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
   padding: 100px 0;
   text-align: center;
   color: var(--ink-3);
-  font-family: var(--serif);
+  font-family: var(--sans);
   font-size: 28px;
 }
 
@@ -650,7 +645,7 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
   margin-bottom: 6px;
 }
 .meta-item .meta-value {
-  font-family: var(--serif);
+  font-family: var(--sans);
   font-size: 22px;
   line-height: 1.15;
 }
@@ -659,7 +654,7 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
 .meta-item .meta-value.era[data-era="Cretaceous"] { color: var(--cretaceous); }
 
 .size-line {
-  font-family: var(--serif);
+  font-family: var(--sans);
   font-size: 26px;
   line-height: 1.25;
   color: var(--ink);
@@ -710,8 +705,7 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
 .fact-block .fact-label::after { content: none; }
 .fact-block h2 {
   font-family: var(--serif);
-  font-weight: 640;
-  font-variation-settings: "opsz" 96, "SOFT" 60;
+  font-weight: 400;
   font-size: 36px;
   line-height: 1.02;
   letter-spacing: -0.015em;
@@ -950,8 +944,7 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
 .about { padding: 64px 0 100px; max-width: 64ch; }
 .about h1 {
   font-family: var(--serif);
-  font-weight: 720;
-  font-variation-settings: "opsz" 144, "SOFT" 70;
+  font-weight: 400;
   font-size: clamp(44px, 6vw, 80px);
   line-height: 1.0;
   letter-spacing: -0.02em;
@@ -960,7 +953,7 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
   color: var(--ink);
 }
 .about p {
-  font-family: var(--serif);
+  font-family: var(--sans);
   font-size: 22px;
   line-height: 1.5;
   margin: 0 0 22px;
@@ -993,7 +986,7 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
   display: flex; justify-content: space-between; align-items: baseline; gap: 24px;
   flex-wrap: wrap;
 }
-.foot .name { font-family: var(--serif); font-size: 16px; text-transform: none; letter-spacing: -0.01em; color: var(--ink); }
+.foot .name { font-family: var(--sans); font-size: 16px; text-transform: none; letter-spacing: -0.01em; color: var(--ink); }
 
 /* ——— transitions ——— */
 .fade-in { animation: fade-in 380ms cubic-bezier(.2,.7,.2,1) both; }
@@ -1079,8 +1072,7 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
 .tl-header { max-width: 64ch; margin-bottom: 36px; }
 .tl-header h1 {
   font-family: var(--serif);
-  font-weight: 720;
-  font-variation-settings: "opsz" 144, "SOFT" 70;
+  font-weight: 400;
   font-size: clamp(48px, 7vw, 86px);
   line-height: 1;
   letter-spacing: -0.025em;
@@ -1397,8 +1389,7 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
 .worldmap { padding: 40px 0 80px; }
 .wm-header { max-width: 64ch; margin-bottom: 28px; }
 .wm-header h1 {
-  font-family: var(--serif); font-weight: 720;
-  font-variation-settings: "opsz" 144, "SOFT" 70;
+  font-family: var(--serif); font-weight: 400;
   font-size: clamp(48px, 7vw, 86px);
   line-height: 1; letter-spacing: -0.025em;
   margin: 0 0 16px;

@@ -200,12 +200,15 @@ function Home({ query, eras, diets, clearAll, mode, toggleEra, toggleDiet }) {
     <main className="fade-in">
       <section className="shell hero">
         <h1>
-          Dinosaurs<br/>
-          {mode === "kid" ? (
-            <>For <span className="accent">kids</span> and <em>grown-ups.</em></>
-          ) : (
-            <>For <em>kids</em> and <span className="accent">grown-ups.</span></>
-          )}
+          <span className="hero-title">Dinosaurs</span>
+          <span className="hero-sub">
+            For{" "}
+            {mode === "kid" ? (
+              <><span className="accent">kids</span> and <em>grown-ups.</em></>
+            ) : (
+              <><em>kids</em> and <span className="accent">grown-ups.</span></>
+            )}
+          </span>
         </h1>
       </section>
 
