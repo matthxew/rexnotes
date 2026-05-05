@@ -25,41 +25,6 @@ function useHashRoute() {
 }
 function navigate(path) { location.hash = path; window.scrollTo({ top: 0, behavior: "instant" }); }
 
-// Mode is the picture-book vs field-guide toggle. Persisted in localStorage
-// and reflected as a body data-attribute so any selector can opt in via
-// [data-mode="kid"] or [data-mode="grownup"].
-function useMode() {
-  const [mode, _setMode] = useState(() => {
-    try { return localStorage.getItem("rexatlas-mode") || "kid"; }
-    catch { return "kid"; }
-  });
-  useEffect(() => {
-    document.documentElement.dataset.mode = mode;
-    try { localStorage.setItem("rexatlas-mode", mode); } catch {}
-  }, [mode]);
-  return [mode, _setMode];
-}
-
-function ModeToggle({ mode, setMode }) {
-  return (
-    <div className="mode-toggle" role="group" aria-label="Reading mode">
-      <span className="mode-label">Read as</span>
-      <button
-        className={`mode-btn ${mode === "kid" ? "on" : ""}`}
-        onClick={() => setMode("kid")}
-        aria-pressed={mode === "kid"}>
-        Kid
-      </button>
-      <button
-        className={`mode-btn ${mode === "grownup" ? "on" : ""}`}
-        onClick={() => setMode("grownup")}
-        aria-pressed={mode === "grownup"}>
-        Grown-up
-      </button>
-    </div>
-  );
-}
-
 /* Three-toed theropod footprint. Iconic dinosaur mark — kids and adults
    both read it as "dinosaur" instantly. Filled silhouette of three claws
    plus a heel pad, slightly off-axis so it feels stamped, not centered. */
@@ -123,7 +88,7 @@ const NAV_ICONS = {
   ),
 };
 
-function Masthead({ route, query, setQuery, mode, setMode }) {
+function Masthead({ route, query, setQuery }) {
   return (
     <header className="masthead">
       <div className="shell masthead-row">
@@ -163,9 +128,6 @@ function Masthead({ route, query, setQuery, mode, setMode }) {
           </button>
         </nav>
       </div>
-      <div className="shell mast-sub">
-        <ModeToggle mode={mode} setMode={setMode} />
-      </div>
     </header>
   );
 }
@@ -180,7 +142,7 @@ function Footer() {
   );
 }
 
-function Home({ query, eras, diets, clearAll, mode, toggleEra, toggleDiet }) {
+function Home({ query, eras, diets, clearAll, toggleEra, toggleDiet }) {
   const filtered = useMemo(() => {
     const needle = query.trim().toLowerCase();
     return window.DINOSAURS.filter(d => {
@@ -202,12 +164,7 @@ function Home({ query, eras, diets, clearAll, mode, toggleEra, toggleDiet }) {
         <h1>
           <span className="hero-title">Dinosaurs</span>
           <span className="hero-sub">
-            For{" "}
-            {mode === "kid" ? (
-              <><span className="accent">kids</span> and <em>grown-ups.</em></>
-            ) : (
-              <><em>kids</em> and <span className="accent">grown-ups.</span></>
-            )}
+            For <em>kids</em> and <span className="accent">grown-ups.</span>
           </span>
         </h1>
       </section>
@@ -285,13 +242,6 @@ function Detail({ slug }) {
               <span>Said</span>
               <strong>{dino.pronunciation}</strong>
             </div>
-          </div>
-          <p className="d-when">{dino.kidTime}</p>
-          <div className="d-era-badge">
-            <span className="era-dot" data-era={dino.era}></span>
-            <span>{dino.era}</span>
-            <span>·</span>
-            <span>{dino.diet}</span>
           </div>
         </section>
 
@@ -399,7 +349,6 @@ function About() {
 
 function App() {
   const route = useHashRoute();
-  const [mode, setMode] = useMode();
   const [query, setQuery] = useState("");
   const [eras, setEras] = useState(new Set());
   const [diets, setDiets] = useState(new Set());
@@ -425,9 +374,8 @@ function App() {
       <Masthead
         route={route}
         query={query} setQuery={setQuery}
-        mode={mode} setMode={setMode}
       />
-      {route.name === "home" && <Home query={query} eras={eras} diets={diets} clearAll={clearAll} mode={mode} toggleEra={toggleEra} toggleDiet={toggleDiet} />}
+      {route.name === "home" && <Home query={query} eras={eras} diets={diets} clearAll={clearAll} toggleEra={toggleEra} toggleDiet={toggleDiet} />}
       {route.name === "timeline" && <window.Timeline />}
       {route.name === "map" && <window.WorldMap />}
       {route.name === "detail" && <Detail slug={route.slug} />}
