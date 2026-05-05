@@ -245,7 +245,7 @@ function Home({ query, eras, diets, clearAll, mode, toggleEra, toggleDiet }) {
                 <div className="card-illus">
                   <window.Silhouette slug={d.slug} era={d.era} />
                 </div>
-                <div className="meta-row only-grownup">
+                <div className="meta-row">
                   <span className="era-dot" data-era={d.era}></span>
                   <span>{d.era}</span>
                   <span>·</span>
@@ -286,8 +286,8 @@ function Detail({ slug }) {
               <strong>{dino.pronunciation}</strong>
             </div>
           </div>
-          <p className="d-when only-kid">{dino.kidTime}</p>
-          <div className="d-era-badge only-kid">
+          <p className="d-when">{dino.kidTime}</p>
+          <div className="d-era-badge">
             <span className="era-dot" data-era={dino.era}></span>
             <span>{dino.era}</span>
             <span>·</span>
@@ -299,7 +299,7 @@ function Detail({ slug }) {
           <div className="detail-illus">
             <window.Silhouette slug={dino.slug} era={dino.era} label="full illustration" />
           </div>
-          <div className="only-grownup">
+          <div>
             <div className="detail-meta-grid">
               <div className="meta-item">
                 <div className="meta-label">Era</div>
@@ -326,12 +326,13 @@ function Detail({ slug }) {
         </section>
 
         <section className="facts with-rule">
-          <div className="fact-block kids only-kid">
+          <div className="fact-block kids">
+            <div className="fact-label" data-num="01">For kids</div>
             <h2>What it was like.</h2>
             <p className="fact-body">{dino.forKids}</p>
           </div>
-          <div className="fact-block parents only-grownup">
-            <div className="fact-label" data-num="02">For Grown-ups</div>
+          <div className="fact-block parents">
+            <div className="fact-label" data-num="02">For grown-ups</div>
             <h2>What we know now.</h2>
             <p className="fact-body">{dino.forParents}</p>
           </div>
