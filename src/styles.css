@@ -365,8 +365,8 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
   display: block;
   font-family: var(--serif);
   font-weight: 400;
-  font-size: clamp(56px, 10.5vw, 132px);
-  line-height: 0.92;
+  font-size: clamp(46px, 7.5vw, 96px);
+  line-height: 0.95;
   letter-spacing: -0.005em;
   text-transform: uppercase;
   color: var(--ink);
