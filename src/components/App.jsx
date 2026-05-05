@@ -60,46 +60,65 @@ function ModeToggle({ mode, setMode }) {
   );
 }
 
-/* Tiny T. rex silhouette mark for the masthead. Outlined, slightly rough,
-   reads as "old book illustration" rather than vector-precise icon. */
+/* Three-toed theropod footprint. Iconic dinosaur mark — kids and adults
+   both read it as "dinosaur" instantly. Filled silhouette of three claws
+   plus a heel pad, slightly off-axis so it feels stamped, not centered. */
 function BrandMark() {
   return (
-    <svg viewBox="0 0 80 64" fill="currentColor" aria-hidden="true">
-      <path d="M4 48 C 4 36, 14 32, 22 32 C 28 32, 30 26, 34 22 C 40 14, 54 12, 62 16 C 68 18, 70 22, 68 26 C 66 28, 62 28, 58 26 C 58 30, 62 32, 66 32 L 74 36 C 78 38, 76 44, 70 44 L 62 44 L 60 52 C 60 56, 56 58, 52 58 L 48 58 L 50 50 L 38 50 L 36 58 L 32 58 L 34 50 C 26 50, 20 54, 16 56 C 12 56, 8 54, 4 48 Z" />
-      <circle cx="58" cy="22" r="1.5" fill="var(--paper)" />
+    <svg viewBox="0 0 64 64" fill="currentColor" aria-hidden="true">
+      {/* outer toe */}
+      <path d="M16 14 C 12 22, 13 30, 18 34 C 22 32, 24 28, 24 22 C 24 18, 22 14, 19 12 C 17 11, 16 12, 16 14 Z" />
+      {/* middle toe (longest, slightly forward) */}
+      <path d="M32 6 C 28 14, 28 26, 32 32 C 36 32, 38 26, 38 14 C 38 10, 36 6, 33 5 C 32 5, 32 5, 32 6 Z" />
+      {/* outer toe right */}
+      <path d="M48 14 C 52 22, 51 30, 46 34 C 42 32, 40 28, 40 22 C 40 18, 42 14, 45 12 C 47 11, 48 12, 48 14 Z" />
+      {/* heel / metatarsal pad */}
+      <path d="M20 36 C 18 44, 22 54, 32 56 C 42 54, 46 44, 44 36 C 40 32, 36 33, 32 35 C 28 33, 24 32, 20 36 Z" />
     </svg>
   );
 }
 
-/* Hand-drawn-feel line icons for the nav. 1.5px stroke, slightly wobbly
-   curves, no perfect geometry — meant to read as "field guide" not "UI". */
+/* Sketchier icons: organic curves, slight rotation in the SVGs that
+   carry a flourish, varied stroke endings. Meant to feel pen-drawn
+   rather than vector-precise. */
 const NAV_ICONS = {
   home: (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-      <path d="M3.5 3.6 L10.5 3.6 L10.5 10.7 L3.5 10.7 Z" />
-      <path d="M13.5 3.4 L20.4 3.6 L20.5 10.6 L13.4 10.5 Z" />
-      <path d="M3.6 13.4 L10.6 13.5 L10.5 20.5 L3.5 20.4 Z" />
-      <path d="M13.4 13.5 L20.5 13.4 L20.4 20.5 L13.5 20.5 Z" />
+    /* Stack of three slightly-offset cards — index entries layered. */
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M5 8 L17 6.5 L18.5 17 L6.5 18.5 Z" />
+      <path d="M6 5 L18 4 L19.2 14.5" />
+      <path d="M8 12 L14 11.4" />
+      <path d="M8 14.5 L13 14" />
     </svg>
   ),
   timeline: (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-      <path d="M12 3.4 C17 3.5, 20.6 7.2, 20.5 12 C 20.5 17, 16.8 20.6, 12 20.5 C 7 20.5, 3.4 16.8, 3.5 12 C 3.5 7, 7.2 3.4, 12 3.4 Z" />
-      <path d="M12 6.5 L12 12 L15.5 14" />
+    /* Slightly oval clock face, hands at 10:10, a little dot at center. */
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M12 3.5 C 17 3.6, 20.8 7.4, 20.5 12.2 C 20.3 17, 16.5 20.6, 11.6 20.5 C 6.8 20.4, 3.4 16.6, 3.6 11.8 C 3.8 7, 7.4 3.4, 12 3.5 Z" />
+      <path d="M12 7 L 12 12.4 L 8.5 14" />
+      <path d="M12 2.5 L 12 3.7" />
+      <circle cx="12" cy="12.4" r="0.9" fill="currentColor" stroke="none" />
     </svg>
   ),
   map: (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-      <path d="M12 3.4 C17 3.5, 20.6 7.2, 20.5 12 C 20.5 17, 16.8 20.6, 12 20.5 C 7 20.5, 3.4 16.8, 3.5 12 C 3.5 7, 7.2 3.4, 12 3.4 Z" />
-      <path d="M3.6 12 L20.4 12" />
-      <path d="M12 3.4 C 9 7, 8.5 12, 9 16.5 C 9.4 19, 10.5 20.5, 12 20.5" />
-      <path d="M12 3.4 C 15 7, 15.5 12, 15 16.5 C 14.6 19, 13.5 20.5, 12 20.5" />
+    /* Folded paper map with a small north-arrow flourish. */
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M3 6.5 L9 4 L15 6 L21 4 L20.5 18 L14.5 20.2 L9 17.8 L3.5 20 Z" />
+      <path d="M9 4 L 9 17.8" />
+      <path d="M15 6 L 14.5 20.2" />
+      <path d="M17.5 8 L 18 11.5 L 19.4 8.4" />
+      <path d="M18 7 L 18 8.5" />
     </svg>
   ),
   about: (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-      <path d="M3.5 5.5 C 6 4.5, 9.5 4.5, 12 5.8 C 14.5 4.5, 18 4.5, 20.5 5.5 L 20.5 18.4 C 18 17.4, 14.5 17.4, 12 18.6 C 9.5 17.4, 6 17.4, 3.5 18.4 Z" />
-      <path d="M12 5.8 L12 18.6" />
+    /* Open book with a rough spine + a few sketched lines. */
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M3 6 C 6 4.8, 9.5 4.8, 12 6.5 C 14.5 4.8, 18 4.8, 21 6 L 20.6 18.5 C 18 17.4, 14.5 17.4, 12 18.7 C 9.5 17.4, 6 17.4, 3.4 18.5 Z" />
+      <path d="M12 6.5 L 12 18.7" />
+      <path d="M5.5 9.5 L 9 9.2" />
+      <path d="M5.5 12 L 9 11.7" />
+      <path d="M15 9.2 L 18.5 9.5" />
+      <path d="M15 11.7 L 18.5 12" />
     </svg>
   ),
 };
@@ -110,7 +129,8 @@ function Masthead({ route, query, setQuery, mode, setMode }) {
       <div className="shell masthead-row">
         <button className="brand" onClick={() => navigate("/")}>
           <span className="brand-mark"><BrandMark /></span>
-          <span className="brand-words"><b>Rex's</b> Atlas</span>
+          <span className="brand-rex">Rex's</span>
+          <span className="brand-atlas">Atlas</span>
         </button>
         <div className="mast-search">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
@@ -126,16 +146,20 @@ function Masthead({ route, query, setQuery, mode, setMode }) {
         </div>
         <nav className="nav">
           <button className={route.name === "home" ? "active" : ""} onClick={() => navigate("/")}>
-            <span className="nav-icon">{NAV_ICONS.home}</span>Index
+            <span className="nav-icon">{NAV_ICONS.home}</span>
+            <span className="nav-label">Index</span>
           </button>
           <button className={route.name === "timeline" ? "active" : ""} onClick={() => navigate("/timeline")}>
-            <span className="nav-icon">{NAV_ICONS.timeline}</span>Timeline
+            <span className="nav-icon">{NAV_ICONS.timeline}</span>
+            <span className="nav-label">Timeline</span>
           </button>
           <button className={route.name === "map" ? "active" : ""} onClick={() => navigate("/map")}>
-            <span className="nav-icon">{NAV_ICONS.map}</span>Map
+            <span className="nav-icon">{NAV_ICONS.map}</span>
+            <span className="nav-label">Map</span>
           </button>
           <button className={route.name === "about" ? "active" : ""} onClick={() => navigate("/about")}>
-            <span className="nav-icon">{NAV_ICONS.about}</span>About
+            <span className="nav-icon">{NAV_ICONS.about}</span>
+            <span className="nav-label">About</span>
           </button>
         </nav>
       </div>
@@ -206,7 +230,6 @@ function Home({ query, eras, diets, clearAll, mode, toggleEra, toggleDiet }) {
         {anyFilter ? (
           <button className="rm-clear" onClick={clearAll}>Clear ✕</button>
         ) : null}
-        <div className="rm-count"><strong>{filtered.length}</strong> of {window.DINOSAURS.length} dinosaurs</div>
       </div>
 
       {filtered.length === 0 ? (
