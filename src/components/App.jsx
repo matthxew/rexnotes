@@ -60,12 +60,57 @@ function ModeToggle({ mode, setMode }) {
   );
 }
 
+/* Tiny T. rex silhouette mark for the masthead. Outlined, slightly rough,
+   reads as "old book illustration" rather than vector-precise icon. */
+function BrandMark() {
+  return (
+    <svg viewBox="0 0 80 64" fill="currentColor" aria-hidden="true">
+      <path d="M4 48 C 4 36, 14 32, 22 32 C 28 32, 30 26, 34 22 C 40 14, 54 12, 62 16 C 68 18, 70 22, 68 26 C 66 28, 62 28, 58 26 C 58 30, 62 32, 66 32 L 74 36 C 78 38, 76 44, 70 44 L 62 44 L 60 52 C 60 56, 56 58, 52 58 L 48 58 L 50 50 L 38 50 L 36 58 L 32 58 L 34 50 C 26 50, 20 54, 16 56 C 12 56, 8 54, 4 48 Z" />
+      <circle cx="58" cy="22" r="1.5" fill="var(--paper)" />
+    </svg>
+  );
+}
+
+/* Hand-drawn-feel line icons for the nav. 1.5px stroke, slightly wobbly
+   curves, no perfect geometry — meant to read as "field guide" not "UI". */
+const NAV_ICONS = {
+  home: (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M3.5 3.6 L10.5 3.6 L10.5 10.7 L3.5 10.7 Z" />
+      <path d="M13.5 3.4 L20.4 3.6 L20.5 10.6 L13.4 10.5 Z" />
+      <path d="M3.6 13.4 L10.6 13.5 L10.5 20.5 L3.5 20.4 Z" />
+      <path d="M13.4 13.5 L20.5 13.4 L20.4 20.5 L13.5 20.5 Z" />
+    </svg>
+  ),
+  timeline: (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M12 3.4 C17 3.5, 20.6 7.2, 20.5 12 C 20.5 17, 16.8 20.6, 12 20.5 C 7 20.5, 3.4 16.8, 3.5 12 C 3.5 7, 7.2 3.4, 12 3.4 Z" />
+      <path d="M12 6.5 L12 12 L15.5 14" />
+    </svg>
+  ),
+  map: (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M12 3.4 C17 3.5, 20.6 7.2, 20.5 12 C 20.5 17, 16.8 20.6, 12 20.5 C 7 20.5, 3.4 16.8, 3.5 12 C 3.5 7, 7.2 3.4, 12 3.4 Z" />
+      <path d="M3.6 12 L20.4 12" />
+      <path d="M12 3.4 C 9 7, 8.5 12, 9 16.5 C 9.4 19, 10.5 20.5, 12 20.5" />
+      <path d="M12 3.4 C 15 7, 15.5 12, 15 16.5 C 14.6 19, 13.5 20.5, 12 20.5" />
+    </svg>
+  ),
+  about: (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M3.5 5.5 C 6 4.5, 9.5 4.5, 12 5.8 C 14.5 4.5, 18 4.5, 20.5 5.5 L 20.5 18.4 C 18 17.4, 14.5 17.4, 12 18.6 C 9.5 17.4, 6 17.4, 3.5 18.4 Z" />
+      <path d="M12 5.8 L12 18.6" />
+    </svg>
+  ),
+};
+
 function Masthead({ route, query, setQuery, mode, setMode }) {
   return (
     <header className="masthead">
       <div className="shell masthead-row">
         <button className="brand" onClick={() => navigate("/")}>
-          <b>Rex's</b><span>Atlas</span><span className="dot"></span>
+          <span className="brand-mark"><BrandMark /></span>
+          <span className="brand-words"><b>Rex's</b> Atlas</span>
         </button>
         <div className="mast-search">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
@@ -80,10 +125,18 @@ function Masthead({ route, query, setQuery, mode, setMode }) {
           {query ? <button className="clear" onClick={() => setQuery("")}>Clear</button> : null}
         </div>
         <nav className="nav">
-          <button className={route.name === "home" ? "active" : ""} onClick={() => navigate("/")}>Index</button>
-          <button className={route.name === "timeline" ? "active" : ""} onClick={() => navigate("/timeline")}>Timeline</button>
-          <button className={route.name === "map" ? "active" : ""} onClick={() => navigate("/map")}>Map</button>
-          <button className={route.name === "about" ? "active" : ""} onClick={() => navigate("/about")}>About</button>
+          <button className={route.name === "home" ? "active" : ""} onClick={() => navigate("/")}>
+            <span className="nav-icon">{NAV_ICONS.home}</span>Index
+          </button>
+          <button className={route.name === "timeline" ? "active" : ""} onClick={() => navigate("/timeline")}>
+            <span className="nav-icon">{NAV_ICONS.timeline}</span>Timeline
+          </button>
+          <button className={route.name === "map" ? "active" : ""} onClick={() => navigate("/map")}>
+            <span className="nav-icon">{NAV_ICONS.map}</span>Map
+          </button>
+          <button className={route.name === "about" ? "active" : ""} onClick={() => navigate("/about")}>
+            <span className="nav-icon">{NAV_ICONS.about}</span>About
+          </button>
         </nav>
       </div>
       <div className="shell mast-sub">

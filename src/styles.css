@@ -34,40 +34,24 @@
   src: url("assets/fonts/1cd1a393-7e22-40fe-9fda-866eb4f8642d.woff2") format('woff2');
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
-/* latin-ext */
+/* latin-ext — Fraunces variable, soft axis. Weighty old-book serif with
+   warmth. wght 100–900, opsz 9–144, soft 0–100. Italics intentionally
+   not loaded; the system avoids editorial italic. */
 @font-face {
-  font-family: 'Instrument Serif';
-  font-style: italic;
-  font-weight: 400;
+  font-family: 'Fraunces';
+  font-style: normal;
+  font-weight: 100 900;
   font-display: swap;
-  src: url("assets/fonts/b9aecaff-da32-45ce-a6f3-1ff225dc30b1.woff2") format('woff2');
+  src: url("assets/fonts/fraunces-latin-ext.woff2") format('woff2-variations');
   unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
 /* latin */
 @font-face {
-  font-family: 'Instrument Serif';
-  font-style: italic;
-  font-weight: 400;
-  font-display: swap;
-  src: url("assets/fonts/8fbc9c2a-7b92-449c-8b42-332ebe857651.woff2") format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-}
-/* latin-ext */
-@font-face {
-  font-family: 'Instrument Serif';
+  font-family: 'Fraunces';
   font-style: normal;
-  font-weight: 400;
+  font-weight: 100 900;
   font-display: swap;
-  src: url("assets/fonts/de75b3d4-7c15-4a1f-a028-3510dc1860e3.woff2") format('woff2');
-  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
-}
-/* latin */
-@font-face {
-  font-family: 'Instrument Serif';
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url("assets/fonts/ce93c83c-481a-4c01-8ac2-7dc1ee430d14.woff2") format('woff2');
+  src: url("assets/fonts/fraunces-latin.woff2") format('woff2-variations');
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
@@ -111,7 +95,7 @@
   --jurassic:   oklch(0.62 0.07 130); /* sage / Morrison shale */
   --cretaceous: oklch(0.55 0.08 240); /* chalk-blue limestone wash */
 
-  --serif: "Instrument Serif", "Times New Roman", Times, serif;
+  --serif: "Fraunces", "Times New Roman", Times, serif;
   --sans:  "DM Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   --display: "Old Standard TT", "Times New Roman", Times, serif; /* species names — roman */
 }
@@ -126,6 +110,19 @@ body {
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+}
+/* Paper grain. Tiled SVG turbulence at low opacity, fixed so it doesn't
+   move when the page scrolls. The noise sits above content but is
+   pointer-events:none and uses multiply blending, so it darkens the
+   paper colour very slightly to read as printed-page grain. */
+body::before {
+  content: "";
+  position: fixed; inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.5;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='1.4' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.13   0 0 0 0 0.13   0 0 0 0 0.16   0 0 0 0.18 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
 }
 ::selection { background: var(--accent); color: var(--accent-ink); }
 
@@ -159,25 +156,31 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
 .masthead-row > * { display: flex; align-items: center; }
 .brand {
   font-family: var(--serif);
-  font-size: 34px;
-  letter-spacing: -0.015em;
-  padding: 14px 36px 14px 0;
+  font-size: 32px;
+  font-weight: 700;
+  font-variation-settings: "opsz" 144, "SOFT" 60;
+  letter-spacing: -0.02em;
+  padding: 14px 28px 14px 0;
   border-right: 1px solid var(--rule);
-  font-style: italic;
   white-space: nowrap;
   flex-shrink: 0;
   min-width: max-content;
-  display: flex; align-items: center; gap: 0;
+  display: flex; align-items: center; gap: 12px;
+  color: var(--ink);
 }
 @media (max-width: 720px) {
-  .brand { font-size: 28px; padding: 16px 22px 16px 0; }
+  .brand { font-size: 26px; padding: 14px 18px 14px 0; gap: 10px; }
 }
-.brand b { font-style: normal; font-family: var(--serif); font-weight: 400; }
-.brand .dot {
-  display: inline-block; width: 8px; height: 8px;
-  background: var(--accent); border-radius: 50%;
-  margin-left: 10px;
+.brand b { font-family: var(--serif); font-weight: 700; }
+.brand-mark {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 36px; height: 36px;
   flex-shrink: 0;
+  color: var(--ink);
+}
+.brand-mark svg { width: 100%; height: 100%; }
+@media (max-width: 720px) {
+  .brand-mark { width: 30px; height: 30px; }
 }
 
 .mast-search {
@@ -191,7 +194,6 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
   font: inherit;
   font-family: var(--serif);
   font-size: 22px;
-  font-style: italic;
   background: transparent;
   border: none;
   padding: 16px 0;
@@ -217,12 +219,24 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
   font-family: var(--sans);
   font-size: 12px;
   text-transform: uppercase;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.14em;
   color: var(--ink-2);
-  padding: 0 28px;
+  padding: 0 22px;
   min-height: 84px;
+  display: flex; align-items: center; gap: 8px;
+}
+.nav-icon {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 22px; height: 22px;
+  flex-shrink: 0;
+  color: var(--ink-3);
+  transition: color 160ms ease;
+}
+.nav button:hover .nav-icon { color: var(--ink); }
+.nav button.active .nav-icon { color: var(--paper); }
+.nav-icon svg { width: 100%; height: 100%; display: block; }
+.nav button {
   height: 100%;
-  display: flex; align-items: center;
   border-right: 1px solid var(--rule);
   transition: background 160ms ease, color 160ms ease;
 }
@@ -298,19 +312,22 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
 }
 .hero h1 {
   font-family: var(--serif);
-  font-weight: 400;
-  font-size: clamp(48px, 8vw, 116px);
-  line-height: 1.02;
-  letter-spacing: -0.035em;
+  font-weight: 720;
+  font-variation-settings: "opsz" 144, "SOFT" 70;
+  font-size: clamp(48px, 8vw, 112px);
+  line-height: 1.0;
+  letter-spacing: -0.025em;
   margin: 0;
   padding-bottom: 0.08em;
   text-wrap: balance;
+  color: var(--ink);
 }
-.hero h1 em { font-style: italic; }
 .hero h1 .accent {
   background: var(--accent); color: var(--accent-ink);
-  padding: 0 0.15em;
-  font-style: italic;
+  padding: 0.02em 0.18em;
+  /* Slight forward tilt + box-shadow gives the highlight a stamp feel
+     instead of a CSS background. */
+  box-shadow: 4px 4px 0 0 color-mix(in oklab, var(--accent-ink) 12%, transparent);
 }
 .hero .dek {
   margin-top: 36px;
@@ -435,9 +452,15 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
   text-transform: uppercase; letter-spacing: 0.16em;
   color: var(--ink-3);
 }
-.card .era-dot {
-  width: 7px; height: 7px;
+.era-dot {
+  width: 12px; height: 12px;
   display: inline-block;
+  border-radius: 2px;
+  border: 1px solid color-mix(in oklab, var(--ink) 30%, transparent);
+  box-shadow: inset 0 -2px 0 color-mix(in oklab, var(--ink) 14%, transparent);
+}
+.card .era-dot {
+  width: 11px; height: 11px;
 }
 .era-dot[data-era="Triassic"]   { background: var(--triassic); }
 .era-dot[data-era="Jurassic"]   { background: var(--jurassic); }
@@ -462,7 +485,6 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
 .card .arrow {
   font-family: var(--serif);
   font-size: 22px;
-  font-style: italic;
   color: var(--ink-3);
   transition: transform 220ms ease, color 220ms ease;
   margin-top: auto;
@@ -475,7 +497,6 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
   text-align: center;
   color: var(--ink-3);
   font-family: var(--serif);
-  font-style: italic;
   font-size: 28px;
 }
 
@@ -560,7 +581,6 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
   font-family: var(--serif);
   font-size: 22px;
   line-height: 1.15;
-  font-style: italic;
 }
 .meta-item .meta-value.era[data-era="Triassic"]   { color: var(--triassic); }
 .meta-item .meta-value.era[data-era="Jurassic"]   { color: var(--jurassic); }
@@ -568,7 +588,6 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
 
 .size-line {
   font-family: var(--serif);
-  font-style: italic;
   font-size: 26px;
   line-height: 1.25;
   color: var(--ink);
@@ -619,12 +638,13 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
 .fact-block .fact-label::after { content: none; }
 .fact-block h2 {
   font-family: var(--serif);
-  font-weight: 400;
-  font-size: 38px;
+  font-weight: 640;
+  font-variation-settings: "opsz" 96, "SOFT" 60;
+  font-size: 36px;
   line-height: 1.02;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.015em;
   margin: 0 0 18px;
-  font-style: italic;
+  color: var(--ink);
 }
 .fact-block .fact-body {
   font-size: 16.5px;
@@ -772,7 +792,6 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
 }
 [data-mode="kid"] .d-when {
   font-family: var(--serif);
-  font-style: italic;
   font-size: clamp(20px, 2.4vw, 26px);
   line-height: 1.4;
   color: var(--ink-2);
@@ -859,13 +878,14 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
 .about { padding: 64px 0 100px; max-width: 64ch; }
 .about h1 {
   font-family: var(--serif);
-  font-weight: 400;
-  font-size: clamp(48px, 7vw, 88px);
-  line-height: 0.95;
-  letter-spacing: -0.03em;
+  font-weight: 720;
+  font-variation-settings: "opsz" 144, "SOFT" 70;
+  font-size: clamp(44px, 6vw, 80px);
+  line-height: 1.0;
+  letter-spacing: -0.02em;
   margin: 0 0 32px;
   text-wrap: pretty;
-  font-style: italic;
+  color: var(--ink);
 }
 .about p {
   font-family: var(--serif);
@@ -876,7 +896,6 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
   text-wrap: pretty;
 }
 .about p.dek {
-  font-style: italic;
   color: var(--ink-2);
   font-size: 26px;
   line-height: 1.35;
@@ -902,7 +921,7 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
   display: flex; justify-content: space-between; align-items: baseline; gap: 24px;
   flex-wrap: wrap;
 }
-.foot .name { font-family: var(--serif); font-size: 16px; text-transform: none; letter-spacing: -0.01em; color: var(--ink); font-style: italic; }
+.foot .name { font-family: var(--serif); font-size: 16px; text-transform: none; letter-spacing: -0.01em; color: var(--ink); }
 
 /* ——— transitions ——— */
 .fade-in { animation: fade-in 380ms cubic-bezier(.2,.7,.2,1) both; }
@@ -988,15 +1007,18 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
 .tl-header { max-width: 64ch; margin-bottom: 36px; }
 .tl-header h1 {
   font-family: var(--serif);
-  font-weight: 400;
-  font-size: clamp(48px, 7vw, 88px);
+  font-weight: 720;
+  font-variation-settings: "opsz" 144, "SOFT" 70;
+  font-size: clamp(48px, 7vw, 86px);
   line-height: 1;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.025em;
   margin: 0 0 16px;
+  color: var(--ink);
 }
 .tl-header h1 .tl-accent {
   background: var(--accent); color: var(--accent-ink);
-  font-style: italic; padding: 0 0.15em;
+  box-shadow: 4px 4px 0 0 color-mix(in oklab, var(--accent-ink) 12%, transparent);
+ padding: 0 0.15em;
 }
 .tl-dek {
   font-size: 16px; line-height: 1.55; color: var(--ink-2);
@@ -1019,7 +1041,7 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
   text-align: center;
   text-wrap: pretty;
 }
-.tl-footnote em { font-style: italic; color: var(--ink-2); }
+.tl-footnote em { color: var(--ink-2); }
 .tl-legend-chip {
   display: inline-block;
   font-family: var(--sans); font-size: 10px;
@@ -1110,7 +1132,6 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
 .tl-alongside-empty {
   font-family: var(--sans); font-size: 13px;
   color: var(--ink-3);
-  font-style: italic;
   padding-top: 4px;
 }
 @media (max-width: 600px) {
@@ -1309,14 +1330,17 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
 .worldmap { padding: 40px 0 80px; }
 .wm-header { max-width: 64ch; margin-bottom: 28px; }
 .wm-header h1 {
-  font-family: var(--serif); font-weight: 400;
-  font-size: clamp(48px, 7vw, 88px);
-  line-height: 1; letter-spacing: -0.03em;
+  font-family: var(--serif); font-weight: 720;
+  font-variation-settings: "opsz" 144, "SOFT" 70;
+  font-size: clamp(48px, 7vw, 86px);
+  line-height: 1; letter-spacing: -0.025em;
   margin: 0 0 16px;
+  color: var(--ink);
 }
 .wm-header h1 .wm-accent {
   background: var(--accent); color: var(--accent-ink);
-  font-style: italic; padding: 0 0.15em;
+  padding: 0.02em 0.18em;
+  box-shadow: 4px 4px 0 0 color-mix(in oklab, var(--accent-ink) 12%, transparent);
 }
 .wm-dek {
   font-size: 16px; line-height: 1.55; color: var(--ink-2);
@@ -1416,7 +1440,7 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
   box-shadow: 0 4px 14px rgba(0,0,0,0.06);
 }
 .wm-place-landmark {
-  font-family: var(--serif); font-style: italic;
+  font-family: var(--serif);
   font-size: 22px; line-height: 1; letter-spacing: -0.01em;
   color: var(--ink); margin-bottom: 4px;
 }
