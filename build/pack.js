@@ -30,6 +30,8 @@ const MIME = {
   '.svg':   'image/svg+xml',
   '.png':   'image/png',
   '.jpg':   'image/jpeg',
+  '.jpeg':  'image/jpeg',
+  '.webp':  'image/webp',
 };
 
 // Babel runs at pack time only — its 3 MB cost stays out of the bundle.
@@ -87,7 +89,7 @@ function buildManifest(map) {
     let bytes = raw;
     let compressed = false;
     // Skip recompressing already-compressed formats.
-    if (!['.woff2', '.png', '.jpg'].includes(ext)) {
+    if (!['.woff2', '.png', '.jpg', '.jpeg', '.webp'].includes(ext)) {
       const z = zlib.gzipSync(raw, { level: 9 });
       if (z.length < raw.length) { bytes = z; compressed = true; }
     }
