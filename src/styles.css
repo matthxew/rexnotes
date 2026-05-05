@@ -81,9 +81,9 @@
    Era colors echo the actual rocks they're named for: red-bed Triassic
    sandstone, sage Jurassic Morrison shale, blue-white Cretaceous chalk. */
 :root {
-  --paper:    oklch(0.94 0.015 75);   /* bone / fossil-white */
-  --paper-2:  oklch(0.92 0.018 75);
-  --paper-3:  oklch(0.88 0.022 75);
+  --paper:    oklch(0.95 0.012 100);  /* cream — matches the illustration backgrounds so they sit borderless */
+  --paper-2:  oklch(0.93 0.014 100);
+  --paper-3:  oklch(0.89 0.017 100);
   --ink:      oklch(0.18 0.02 240);   /* deep slate, blue-black */
   --ink-2:    oklch(0.36 0.02 240);
   --ink-3:    oklch(0.55 0.015 240);
