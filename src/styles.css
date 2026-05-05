@@ -160,8 +160,8 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
 }
 .masthead-row > * { display: flex; align-items: center; }
 /* Brand: two-font wordmark. "Rex's" handwritten Caveat (personal),
-   "ATLAS" all-caps Bevan (heavy display slab — book-spine, monumental).
-   Tension between the two registers is the whole point. */
+   "ATLAS" all-caps Old Standard TT (classical, monumental). Tension
+   between the two registers is the whole point. */
 .brand {
   padding: 14px 24px 14px 0;
   white-space: nowrap;
@@ -284,57 +284,7 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
 .nav button.active .nav-icon { color: var(--ink); }
 @media (max-width: 720px) {
   .nav button { padding: 0 12px; min-height: 64px; }
-  .nav button.active::after { bottom: 8px; left: 12px; right: 12px; }
-}
-
-/* Sub-bar under the masthead: hosts the global mode toggle. Always visible.
-   Right-aligned, slim, low-contrast — sits between the dense top row and
-   the page content without competing for attention. */
-.mast-sub {
-  display: flex; align-items: center; justify-content: flex-end;
-  padding: 8px 40px;
-  gap: 10px;
-}
-@media (max-width: 1024px) { .mast-sub { padding: 8px 32px; } }
-@media (max-width: 640px)  { .mast-sub { padding: 8px 22px; justify-content: flex-start; } }
-
-.mode-toggle {
-  display: flex; align-items: center; gap: 8px;
-  font-family: var(--sans);
-  font-size: 11px;
-  text-transform: uppercase;
-  letter-spacing: 0.14em;
-  color: var(--ink-3);
-}
-.mode-label { color: var(--ink-3); white-space: nowrap; }
-.mode-btn {
-  font-family: var(--sans);
-  font-size: 11px;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  padding: 5px 10px;
-  border: 1px solid var(--rule);
-  background: var(--paper);
-  color: var(--ink-2);
-  border-radius: 999px;
-  white-space: nowrap;
-  transition: background 140ms ease, color 140ms ease, border-color 140ms ease;
-}
-.mode-btn:hover { color: var(--ink); border-color: var(--ink); }
-/* Active mode picks up the same handwritten + amber-stamped treatment
-   as the hero accent, so the page reads as "you've chosen this voice". */
-.mode-btn.on {
-  background: var(--accent);
-  color: var(--accent-ink);
-  border-color: var(--accent-ink);
-  font-family: var(--hand);
-  font-weight: 600;
-  text-transform: none;
-  letter-spacing: 0;
-  font-size: 18px;
-  padding: 2px 12px;
-}
-.chip {
+  .nav button.active::after {@media (max-width: 640px)  {.chip {
   font-family: var(--sans); font-size: 12px;
   text-transform: uppercase; letter-spacing: 0.12em;
   color: var(--ink-2);
@@ -610,6 +560,19 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
 }
 .pronunciation strong { color: var(--ink); font-weight: 500; }
 
+/* Friendly kid-time line that sits under the species name + pronunciation.
+   "About 66 million years ago, right before all the big dinosaurs
+   disappeared." Reads as the editorial voice of the page. */
+.d-when {
+  font-family: var(--sans);
+  font-size: clamp(17px, 1.6vw, 20px);
+  line-height: 1.5;
+  color: var(--ink-2);
+  margin: 16px 0 0;
+  max-width: 60ch;
+  text-wrap: pretty;
+}
+
 .detail-content {
   display: grid;
   grid-template-columns: 1.05fr 1fr;
@@ -834,112 +797,6 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
   margin-bottom: 10px;
 }
 .pn-item .pn-name {
-  font-family: var(--display);
-  font-size: 28px;
-  line-height: 1.05;
-  letter-spacing: -0.005em;
-}
-
-/* ——— mode-aware visibility helpers ———
-   The toggle in the masthead sets body[data-mode]; pages opt in by tagging
-   blocks with .only-kid / .only-grownup. The mode-specific layout overrides
-   for the detail page sit just below. */
-[data-mode="kid"] .only-grownup,
-[data-mode="grownup"] .only-kid { display: none !important; }
-
-/* ——— detail page · kid mode (picture-book spread) ——— */
-[data-mode="kid"] .detail h1 {
-  font-size: clamp(44px, 7vw, 88px);
-}
-[data-mode="kid"] .detail-name-row {
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 6px;
-}
-[data-mode="kid"] .d-when {
-  font-family: var(--serif);
-  font-size: clamp(20px, 2.4vw, 26px);
-  line-height: 1.4;
-  color: var(--ink-2);
-  margin: 12px 0 0;
-  max-width: 56ch;
-  text-wrap: pretty;
-}
-[data-mode="kid"] .d-era-badge {
-  display: inline-flex; align-items: center; gap: 8px;
-  font-family: var(--sans); font-size: 11px;
-  text-transform: uppercase; letter-spacing: 0.16em;
-  color: var(--ink-3);
-  margin: 18px 0 0;
-}
-[data-mode="kid"] .d-era-badge .era-dot {
-  width: 8px; height: 8px;
-}
-[data-mode="kid"] .detail-content {
-  grid-template-columns: 1fr;
-  gap: 32px;
-  margin-top: 36px;
-}
-[data-mode="kid"] .detail-illus {
-  aspect-ratio: 5/4;
-  max-width: 760px;
-  width: 100%;
-  margin: 0 auto;
-  border-radius: 18px;
-}
-[data-mode="kid"] .facts {
-  grid-template-columns: 1fr;
-  max-width: 60ch;
-  margin-left: auto;
-  margin-right: auto;
-  padding: 56px 0 16px;
-  gap: 0;
-}
-[data-mode="kid"] .fact-block.kids h2 {
-  font-size: clamp(30px, 4vw, 44px);
-  margin-bottom: 14px;
-}
-[data-mode="kid"] .fact-block.kids .fact-body {
-  font-size: 19px;
-  line-height: 1.65;
-}
-[data-mode="kid"] .trivia {
-  padding: 56px 0 56px;
-}
-[data-mode="kid"] .trivia h3 {
-  display: flex; justify-content: center;
-  margin-bottom: 28px;
-}
-[data-mode="kid"] .trivia ul {
-  grid-template-columns: 1fr;
-  max-width: 60ch;
-  margin: 0 auto;
-  gap: 28px;
-}
-[data-mode="kid"] .trivia li {
-  font-size: 17.5px;
-  line-height: 1.6;
-}
-
-/* ——— detail page · grown-up mode (field-guide plate) ———
-   Existing detail layout is already plate-y. Tighten copy + add a plate
-   number to the parents fact-label so the science block reads as a
-   numbered specimen entry. */
-[data-mode="grownup"] .detail h1 {
-  letter-spacing: -0.012em;
-}
-[data-mode="grownup"] .fact-block.parents .fact-body {
-  font-size: 16px;
-  line-height: 1.6;
-}
-[data-mode="grownup"] .fact-block.parents .fact-label::after {
-  content: " — Field notes";
-  color: var(--ink-3);
-  font-weight: 400;
-  letter-spacing: 0.12em;
-  margin-left: 4px;
-}
-
 /* ——— about ——— */
 .about { padding: 64px 0 100px; max-width: 64ch; }
 .about h1 {
@@ -1003,58 +860,7 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
 .stagger > *:nth-child(6)  { animation-delay: 150ms;}
 .stagger > *:nth-child(7)  { animation-delay: 180ms;}
 .stagger > *:nth-child(8)  { animation-delay: 210ms;}
-.stagger > *:nth-child(n+9){ animation-delay: 240ms;}
-
-/* ——— home grid · per mode ——— */
-
-
-/* Grown-up mode: denser, 5-up specimen index */
-[data-mode="grownup"] .grid { grid-template-columns: repeat(5, 1fr); }
-@media (max-width: 1280px) { [data-mode="grownup"] .grid { grid-template-columns: repeat(4, 1fr); } }
-@media (max-width: 980px)  { [data-mode="grownup"] .grid { grid-template-columns: repeat(3, 1fr); } }
-@media (max-width: 700px)  { [data-mode="grownup"] .grid { grid-template-columns: repeat(2, 1fr); } }
-@media (max-width: 460px)  { [data-mode="grownup"] .grid { grid-template-columns: 1fr; } }
-
-[data-mode="grownup"] .card {
-  padding: 18px 20px 22px;
-  gap: 12px;
-  min-height: 320px;
-}
-[data-mode="grownup"] .card:nth-child(5n) { border-right: none; }
-[data-mode="grownup"] .card:nth-child(4n) { border-right: 1px solid var(--rule); }
-[data-mode="grownup"] .card h3 {
-  font-size: 24px;
-  line-height: 1.05;
-}
-
-/* Kid mode: bigger cards, fewer per row, more breathing room */
-[data-mode="kid"] .grid { grid-template-columns: repeat(3, 1fr); }
-@media (max-width: 1100px) { [data-mode="kid"] .grid { grid-template-columns: repeat(2, 1fr); } }
-@media (max-width: 600px)  { [data-mode="kid"] .grid { grid-template-columns: 1fr; } }
-
-[data-mode="kid"] .card {
-  padding: 28px 28px 32px;
-  gap: 18px;
-  min-height: 420px;
-}
-[data-mode="kid"] .card:nth-child(4n) { border-right: 1px solid var(--rule); }
-[data-mode="kid"] .card:nth-child(3n) { border-right: none; }
-@media (max-width: 1100px) {
-  [data-mode="kid"] .card:nth-child(3n) { border-right: 1px solid var(--rule); }
-  [data-mode="kid"] .card:nth-child(2n) { border-right: none; }
-}
-@media (max-width: 600px) {
-  [data-mode="kid"] .card { border-right: none; }
-}
-[data-mode="kid"] .card h3 {
-  font-size: 36px;
-  line-height: 1.05;
-}
-[data-mode="kid"] .card .teaser {
-  font-size: 16px;
-  line-height: 1.5;
-}
-
+.stagger > *:nth-child(n+9){@media (max-width: 460px)  {@media (max-width: 600px)  {@media (max-width: 600px) {
 /* ——— silhouette caption ——— */
 .silhouette-caption {
   position: absolute;
