@@ -25,25 +25,20 @@ function useHashRoute() {
 }
 function navigate(path) { location.hash = path; window.scrollTo({ top: 0, behavior: "instant" }); }
 
-/* Three-toed theropod track. Cleaner, more iconic shape: tall narrow
-   middle toe, two outer toes angled outward, an oval heel pad below.
-   Tiny claw nubs on each toe so it reads as an animal track and not a
-   leaf or a flame. */
+/* Brand mark — uses the uploaded footprint image at runtime. Falls back
+   to a tiny inline SVG silhouette only if the image asset is missing
+   (e.g. during dev before the bundle is packed). */
 function BrandMark() {
+  const url = window.__resources?.brandMark;
+  if (url) {
+    return <img src={url} alt="" className="brand-mark-img" />;
+  }
   return (
     <svg viewBox="0 0 64 80" fill="currentColor" aria-hidden="true">
-      {/* heel pad */}
       <ellipse cx="32" cy="60" rx="20" ry="14" />
-      {/* middle toe */}
       <path d="M32 4 C 25 4, 22 12, 23 24 C 23 32, 26 40, 32 42 C 38 40, 41 32, 41 24 C 42 12, 39 4, 32 4 Z" />
-      {/* left toe — tilted ~22° out */}
       <path d="M11 18 C 6 22, 4 32, 8 40 C 12 46, 18 48, 22 44 C 25 40, 24 32, 20 24 C 16 18, 13 16, 11 18 Z" />
-      {/* right toe — mirror */}
       <path d="M53 18 C 58 22, 60 32, 56 40 C 52 46, 46 48, 42 44 C 39 40, 40 32, 44 24 C 48 18, 51 16, 53 18 Z" />
-      {/* claw nubs at the toe tips */}
-      <path d="M30 2 L34 2 L32 7 Z" />
-      <path d="M9 13 L13 11 L13 18 Z" />
-      <path d="M55 13 L51 11 L51 18 Z" />
     </svg>
   );
 }

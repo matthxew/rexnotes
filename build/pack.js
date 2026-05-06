@@ -149,6 +149,11 @@ function main() {
 
   const extResources = [{ id: 'worldAtlas', uuid: map['assets/world-atlas.json'] }];
 
+  // Brand mark image — used by the masthead BrandMark component.
+  if (map['assets/footprint.webp']) {
+    extResources.push({ id: 'brandMark', uuid: map['assets/footprint.webp'] });
+  }
+
   // Auto-expose every species illustration as an ext_resource keyed by
   // "illustration:<slug>" so the Silhouette component can look them up
   // at runtime via window.__resources. Drop a PNG/JPG/SVG into

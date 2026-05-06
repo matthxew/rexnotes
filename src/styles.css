@@ -172,37 +172,40 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
 }
 .brand-mark {
   display: inline-flex; align-items: center; justify-content: center;
-  width: 36px; height: 38px;
+  width: 42px; height: 42px;
   flex-shrink: 0;
   color: var(--ink);
   align-self: center;
-  margin-right: 2px;
+  margin-right: 4px;
 }
-.brand-mark svg { width: 100%; height: 100%; }
+.brand-mark svg,
+.brand-mark-img { width: 100%; height: 100%; object-fit: contain; display: block; }
 .brand-rex {
   font-family: var(--hand);
   font-weight: 600;
-  font-size: 38px;
+  font-size: 36px;
   line-height: 1;
   letter-spacing: -0.01em;
   color: var(--ink);
   margin-right: 0;
+  /* Drop Caveat down so its visual midline matches ATLAS's cap-line
+     instead of sitting on a lower baseline. */
+  transform: translateY(0.06em);
 }
 .brand-atlas {
   font-family: var(--serif);
   font-weight: 400;
-  font-size: 22px;
+  font-size: 26px;
   line-height: 1;
   text-transform: uppercase;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.04em;
   color: var(--ink);
-  align-self: center;
 }
 @media (max-width: 720px) {
   .brand { padding: 12px 18px 12px 0; gap: 8px; }
-  .brand-mark { width: 32px; height: 32px; }
+  .brand-mark { width: 36px; height: 36px; }
   .brand-rex { font-size: 30px; }
-  .brand-atlas { font-size: 18px; }
+  .brand-atlas { font-size: 22px; }
 }
 
 .mast-search {
