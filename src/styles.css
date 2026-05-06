@@ -123,12 +123,21 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
 .serif { font-family: var(--serif); }
 .mono  { font-family: var(--sans); }
 
-/* Centered content column. Gets the paper fill so topo only shows in the
-   side gutters and around content edges — text always reads on paper. */
-.shell { max-width: 1320px; margin: 0 auto; padding: 0 40px; background: var(--paper); }
-/* The masthead-row is itself a .shell — but the parent .masthead is
-   already paper, so no need to double up. Keeping the paper on .shell
-   throughout for consistency, the masthead just doesn't contrast. */
+/* Centered content column. Paper fill so topo only shows in the side
+   gutters; the box-shadow is a soft paper-coloured halo that bleeds the
+   shell edge into the topo so the boundary is feathered, not a hard
+   rectangle. */
+.shell {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 0 40px;
+  background: var(--paper);
+  box-shadow: 0 0 80px 30px var(--paper);
+  position: relative;
+}
+/* Masthead has its own paper fill — drop the halo there so the bottom
+   border doesn't smear into the page below. */
+.masthead .shell { box-shadow: none; }
 @media (max-width: 1024px) { .shell { padding: 0 32px; } }
 @media (max-width: 640px) { .shell { padding: 0 22px; } }
 
