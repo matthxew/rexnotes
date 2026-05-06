@@ -77,8 +77,12 @@ function useAnimatedViewBox(target, duration = 700) {
   return current;
 }
 
-function WorldMap() {
-  const [selectedSlug, setSelectedSlug] = useMState("tyrannosaurus-rex");
+function WorldMap({ initialSlug }) {
+  // Honour the optional /map/<slug> deep-link, otherwise default to T. rex.
+  const [selectedSlug, setSelectedSlug] = useMState(() => {
+    if (initialSlug && window.DINOSAURS.some(d => d.slug === initialSlug)) return initialSlug;
+    return "tyrannosaurus-rex";
+  });
   const [eraFilter, setEraFilter] = useMState(new Set());
   const [worldData, setWorldData] = useMState(null);
   const [zoomed, setZoomed] = useMState(true);

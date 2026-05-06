@@ -18,6 +18,11 @@ function useHashRoute() {
     if (h === "about") return { name: "about" };
     if (h === "timeline") return { name: "timeline" };
     if (h === "map") return { name: "map" };
+    // Optional /<slug> on timeline + map deep-links to a pre-selected species.
+    const tl = h.match(/^timeline\/(.+)$/);
+    if (tl) return { name: "timeline", slug: tl[1] };
+    const mp = h.match(/^map\/(.+)$/);
+    if (mp) return { name: "map", slug: mp[1] };
     const m = h.match(/^d\/(.+)$/);
     if (m) return { name: "detail", slug: m[1] };
     return { name: "home" };
@@ -254,18 +259,18 @@ function Detail({ slug }) {
                 <div className="meta-label">Era</div>
                 <div className="meta-value era" data-era={dino.era}>{dino.era}</div>
               </div>
-              <div className="meta-item">
-                <div className="meta-label">When</div>
+              <button className="meta-item meta-link" onClick={() => navigate(`/timeline/${dino.slug}`)}>
+                <div className="meta-label">When <span className="meta-arrow">↗</span></div>
                 <div className="meta-value">{dino.yearsAgo}</div>
-              </div>
+              </button>
               <div className="meta-item">
                 <div className="meta-label">Diet</div>
                 <div className="meta-value">{dino.diet}</div>
               </div>
-              <div className="meta-item">
-                <div className="meta-label">Habitat</div>
+              <button className="meta-item meta-link" onClick={() => navigate(`/map/${dino.slug}`)}>
+                <div className="meta-label">Habitat <span className="meta-arrow">↗</span></div>
                 <div className="meta-value">{dino.habitat}</div>
-              </div>
+              </button>
             </div>
             <p className="size-line">
               <span className="label">Size</span>
@@ -375,8 +380,8 @@ function App() {
         query={query} setQuery={setQuery}
       />
       {route.name === "home" && <Home query={query} eras={eras} diets={diets} clearAll={clearAll} toggleEra={toggleEra} toggleDiet={toggleDiet} />}
-      {route.name === "timeline" && <window.Timeline />}
-      {route.name === "map" && <window.WorldMap />}
+      {route.name === "timeline" && <window.Timeline initialSlug={route.slug} />}
+      {route.name === "map" && <window.WorldMap initialSlug={route.slug} />}
       {route.name === "detail" && <Detail slug={route.slug} />}
       {route.name === "about" && <About />}
       <Footer />

@@ -586,6 +586,30 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
 }
 .meta-item {
   padding: 22px 24px;
+  text-align: left;
+}
+/* When/Habitat are buttons that deep-link to the timeline + map. Keep
+   them visually consistent with the static cells, but show their
+   clickability with a subtle hover and the small ↗ arrow next to the
+   label. */
+button.meta-item {
+  cursor: pointer;
+  transition: background 160ms ease;
+}
+button.meta-item:hover {
+  background: var(--paper-3);
+}
+button.meta-item:hover .meta-arrow {
+  color: var(--ink);
+  transform: translate(2px, -2px);
+}
+.meta-arrow {
+  display: inline-block;
+  font-family: var(--sans);
+  font-weight: 500;
+  color: var(--ink-3);
+  transition: color 160ms ease, transform 200ms ease;
+  margin-left: 2px;
 }
 .meta-item .meta-label {
   font-family: var(--sans); font-size: 10px;

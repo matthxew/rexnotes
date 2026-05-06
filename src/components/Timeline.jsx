@@ -43,7 +43,7 @@ function rangesOverlap(a, b) {
   return a.time.end <= b.time.start && b.time.end <= a.time.start;
 }
 
-function Timeline() {
+function Timeline({ initialSlug }) {
   // Items sorted oldest → youngest so left/right arrow keys move forward
   // and backward in time without surprises.
   const items = useTMemo(() => (
@@ -73,7 +73,11 @@ function Timeline() {
     return { items: out, laneCount: lanes.length };
   }, [items]);
 
-  const [selectedSlug, setSelectedSlug] = useTState(items[0].slug);
+  // Honour the optional /timeline/<slug> deep-link, otherwise default
+  // to the first species in the curated order.
+  const [selectedSlug, setSelectedSlug] = useTState(() => (
+    initialSlug && items.some(d => d.slug === initialSlug) ? initialSlug : items[0].slug
+  ));
   const selected = laid.items.find(d => d.slug === selectedSlug) || laid.items[0];
 
   // Species whose lifespans overlap with the selection (excluding itself).
