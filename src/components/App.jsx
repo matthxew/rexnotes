@@ -94,8 +94,7 @@ function Masthead({ route, query, setQuery }) {
       <div className="shell masthead-row">
         <button className="brand" onClick={() => navigate("/")}>
           <span className="brand-mark"><BrandMark /></span>
-          <span className="brand-rex">Rex's</span>
-          <span className="brand-atlas">Atlas</span>
+          <span className="brand-words">Rex's Atlas</span>
         </button>
         <div className="mast-search">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">

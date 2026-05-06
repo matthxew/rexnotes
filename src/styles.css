@@ -180,32 +180,18 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
 }
 .brand-mark svg,
 .brand-mark-img { width: 100%; height: 100%; object-fit: contain; display: block; }
-.brand-rex {
+.brand-words {
   font-family: var(--hand);
   font-weight: 600;
-  font-size: 36px;
+  font-size: 38px;
   line-height: 1;
-  letter-spacing: -0.01em;
-  color: var(--ink);
-  margin-right: 0;
-  /* Drop Caveat down so its visual midline matches ATLAS's cap-line
-     instead of sitting on a lower baseline. */
-  transform: translateY(0.06em);
-}
-.brand-atlas {
-  font-family: var(--serif);
-  font-weight: 400;
-  font-size: 26px;
-  line-height: 1;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
+  letter-spacing: -0.005em;
   color: var(--ink);
 }
 @media (max-width: 720px) {
   .brand { padding: 12px 18px 12px 0; gap: 8px; }
   .brand-mark { width: 36px; height: 36px; }
-  .brand-rex { font-size: 30px; }
-  .brand-atlas { font-size: 22px; }
+  .brand-words { font-size: 32px; }
 }
 
 .mast-search {
@@ -809,13 +795,6 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
 .fact-block.parents .fact-body {
   font-size: 16px;
   line-height: 1.6;
-}
-.fact-block.parents .fact-label::after {
-  content: " — Field notes";
-  color: var(--ink-3);
-  font-weight: 400;
-  letter-spacing: 0.12em;
-  margin-left: 4px;
 }
 
 /* ——— about ——— */
