@@ -81,6 +81,7 @@
 
   --accent:     oklch(0.72 0.14 60);  /* amber — fossil-preserved-in */
   --accent-ink: oklch(0.22 0.04 60);
+  --ink-pen:    oklch(0.40 0.16 252); /* ballpoint blue — handwritten register */
 
   /* Era — minerals from the strata themselves */
   --triassic:   oklch(0.48 0.13 30);  /* iron-oxide red-bed sandstone */
@@ -200,7 +201,7 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
   font-size: 38px;
   line-height: 1;
   letter-spacing: -0.005em;
-  color: var(--ink);
+  color: var(--ink-pen);
 }
 @media (max-width: 720px) {
   .brand { padding: 12px 18px 12px 0; gap: 8px; }
@@ -276,6 +277,7 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
   text-transform: none;
   letter-spacing: 0;
   font-size: 22px;
+  color: var(--ink-pen);
 }
 .nav button.active::after {
   content: "";
@@ -356,7 +358,7 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
   font-family: var(--hand);
   font-weight: 600;
   background: none;
-  color: var(--ink);
+  color: var(--ink-pen);
   font-size: 1.45em;
   line-height: 0.85;
   letter-spacing: 0;
