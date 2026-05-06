@@ -81,7 +81,7 @@
 
   --accent:     oklch(0.72 0.14 60);  /* amber — fossil-preserved-in */
   --accent-ink: oklch(0.22 0.04 60);
-  --ink-pen:    oklch(0.40 0.16 252); /* ballpoint blue — handwritten register */
+  --ink-pen:    oklch(0.50 0.10 250); /* ballpoint blue — handwritten register, slightly faded */
 
   /* Era — minerals from the strata themselves */
   --triassic:   oklch(0.48 0.13 30);  /* iron-oxide red-bed sandstone */
