@@ -25,20 +25,25 @@ function useHashRoute() {
 }
 function navigate(path) { location.hash = path; window.scrollTo({ top: 0, behavior: "instant" }); }
 
-/* Three-toed theropod footprint. Iconic dinosaur mark — kids and adults
-   both read it as "dinosaur" instantly. Filled silhouette of three claws
-   plus a heel pad, slightly off-axis so it feels stamped, not centered. */
+/* Three-toed theropod track. Cleaner, more iconic shape: tall narrow
+   middle toe, two outer toes angled outward, an oval heel pad below.
+   Tiny claw nubs on each toe so it reads as an animal track and not a
+   leaf or a flame. */
 function BrandMark() {
   return (
-    <svg viewBox="0 0 64 64" fill="currentColor" aria-hidden="true">
-      {/* outer toe */}
-      <path d="M16 14 C 12 22, 13 30, 18 34 C 22 32, 24 28, 24 22 C 24 18, 22 14, 19 12 C 17 11, 16 12, 16 14 Z" />
-      {/* middle toe (longest, slightly forward) */}
-      <path d="M32 6 C 28 14, 28 26, 32 32 C 36 32, 38 26, 38 14 C 38 10, 36 6, 33 5 C 32 5, 32 5, 32 6 Z" />
-      {/* outer toe right */}
-      <path d="M48 14 C 52 22, 51 30, 46 34 C 42 32, 40 28, 40 22 C 40 18, 42 14, 45 12 C 47 11, 48 12, 48 14 Z" />
-      {/* heel / metatarsal pad */}
-      <path d="M20 36 C 18 44, 22 54, 32 56 C 42 54, 46 44, 44 36 C 40 32, 36 33, 32 35 C 28 33, 24 32, 20 36 Z" />
+    <svg viewBox="0 0 64 80" fill="currentColor" aria-hidden="true">
+      {/* heel pad */}
+      <ellipse cx="32" cy="60" rx="20" ry="14" />
+      {/* middle toe */}
+      <path d="M32 4 C 25 4, 22 12, 23 24 C 23 32, 26 40, 32 42 C 38 40, 41 32, 41 24 C 42 12, 39 4, 32 4 Z" />
+      {/* left toe — tilted ~22° out */}
+      <path d="M11 18 C 6 22, 4 32, 8 40 C 12 46, 18 48, 22 44 C 25 40, 24 32, 20 24 C 16 18, 13 16, 11 18 Z" />
+      {/* right toe — mirror */}
+      <path d="M53 18 C 58 22, 60 32, 56 40 C 52 46, 46 48, 42 44 C 39 40, 40 32, 44 24 C 48 18, 51 16, 53 18 Z" />
+      {/* claw nubs at the toe tips */}
+      <path d="M30 2 L34 2 L32 7 Z" />
+      <path d="M9 13 L13 11 L13 18 Z" />
+      <path d="M55 13 L51 11 L51 18 Z" />
     </svg>
   );
 }
