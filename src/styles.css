@@ -939,7 +939,8 @@ button.meta-item:hover .meta-arrow {
   --w: 220px;
   flex: 0 1 auto;
   width: var(--w);
-  position: relative;
+  display: flex; flex-direction: column; align-items: center;
+  gap: 10px;
   cursor: pointer;
   background: none; border: none; padding: 0;
   transform: rotate(var(--rot)) scale(var(--scale));
@@ -952,26 +953,23 @@ button.meta-item:hover .meta-arrow {
 .sticker:hover { --scale: 1.08; z-index: 5; }
 .sticker:focus-visible { outline: 2px solid var(--ink); outline-offset: 6px; border-radius: 8px; }
 
-/* Name label tucked below the sticker, fades in on hover. Pen ink
-   colour matches the rest of the handwritten register. */
+/* Name label sits below the cutout in normal flow — always visible so
+   you can scan-read the page on touch devices and find what you're
+   looking for at a glance. Hover doesn't fade in/out anymore; it just
+   lifts the whole sticker. */
 .sticker-label {
-  position: absolute;
-  left: 50%;
-  bottom: -28px;
-  transform: translate(-50%, -4px);
   font-family: var(--hand);
   font-weight: 600;
-  font-size: 26px;
+  font-size: 24px;
   line-height: 1;
   color: var(--ink-pen);
   white-space: nowrap;
-  opacity: 0;
-  transition: opacity 200ms ease, transform 220ms cubic-bezier(.2,.7,.2,1);
+  text-align: center;
   pointer-events: none;
+  transition: color 200ms ease;
 }
 .sticker:hover .sticker-label {
-  opacity: 1;
-  transform: translate(-50%, 4px);
+  color: var(--ink);
 }
 
 /* Per-position variation. Sizes oscillate between 200-280px and tilts
