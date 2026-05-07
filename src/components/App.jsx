@@ -335,7 +335,7 @@ function NextPrev({ current }) {
 function About() {
   return (
     <main className="shell about fade-in">
-      <h1>A small, considered field guide.</h1>
+      <h1>A small, considered dinosaur guide.</h1>
       <p>Most kids' dinosaur content is either Wikipedia-dense or covered in ads. Rex's Notes is an attempt at something else.</p>
       <p>Made for kids who love dinosaurs and the grown-ups reading along. Built in London for our son Ethan, and named for his grandfather Rex.</p>
       <div className="field-note">
