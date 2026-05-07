@@ -200,23 +200,21 @@ function Home({ query, eras, diets, clearAll, toggleEra, toggleDiet }) {
         <div className="shell empty">No dinosaurs match. Loosen a filter.</div>
       ) : (
         <div className="shell">
-          <div className="grid stagger">
-            {filtered.map(d => (
-              <button key={d.slug} className="card" onClick={() => navigate(`/d/${d.slug}`)}>
-                <div className="card-illus">
-                  <window.Silhouette slug={d.slug} era={d.era} />
-                </div>
-                <div className="meta-row">
-                  <span className="era-dot" data-era={d.era}></span>
-                  <span>{d.era}</span>
-                  <span>·</span>
-                  <span>{d.diet}</span>
-                </div>
-                <h3>{d.name}</h3>
-                <p className="teaser">{d.teaser}</p>
-                <span className="arrow">→</span>
-              </button>
-            ))}
+          <div className="sticker-page stagger">
+            {filtered.map((d, i) => {
+              const url = window.__resources?.["cropped:" + d.slug];
+              if (!url) return null; // no cropped image yet — skip
+              return (
+                <button
+                  key={d.slug}
+                  className="sticker"
+                  style={{ "--i": i }}
+                  onClick={() => navigate(`/d/${d.slug}`)}>
+                  <img src={url} alt={d.name} />
+                  <span className="sticker-label">{d.name}</span>
+                </button>
+              );
+            })}
           </div>
         </div>
       )}

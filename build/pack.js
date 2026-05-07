@@ -168,6 +168,18 @@ function main() {
       extResources.push({ id: 'illustration:' + slug, uuid: map[key] });
     }
   }
+
+  // Cropped (transparent) variants for the home sticker collage.
+  const cropDir = path.join(SRC, 'assets/cropped');
+  if (fs.existsSync(cropDir)) {
+    for (const f of fs.readdirSync(cropDir)) {
+      const slug = f.replace(/\.(png|jpg|jpeg|svg|webp)$/i, '');
+      if (slug === f) continue;
+      const key = 'assets/cropped/' + f;
+      if (!map[key]) continue;
+      extResources.push({ id: 'cropped:' + slug, uuid: map[key] });
+    }
+  }
   const loader = fs.readFileSync(path.join(BUILD, 'loader.js'), 'utf8').trimEnd();
   const shell = fs.readFileSync(path.join(BUILD, 'shell.html'), 'utf8');
 

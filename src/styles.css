@@ -924,6 +924,81 @@ button.meta-item:hover .meta-arrow {
 }
 
 /* Kid mode: bigger cards, fewer per row, more breathing room */
+/* ——— sticker collage (home page) ———
+   Cropped, transparent dinosaur cutouts arranged like stickers on a
+   page. Each one varies slightly in size and tilt via nth-child so
+   the layout doesn't read as a grid. Hover scales the dino up a touch
+   and reveals the species name in handwritten ink underneath. */
+.sticker-page {
+  display: flex; flex-wrap: wrap;
+  justify-content: center; align-items: flex-end;
+  gap: 36px 28px;
+  padding: 64px 12px 96px;
+}
+.sticker {
+  --rot: 0deg;
+  --scale: 1;
+  --w: 220px;
+  flex: 0 1 auto;
+  width: var(--w);
+  position: relative;
+  cursor: pointer;
+  background: none; border: none; padding: 0;
+  transform: rotate(var(--rot)) scale(var(--scale));
+  transition: transform 240ms cubic-bezier(.2,.7,.2,1);
+}
+.sticker img {
+  width: 100%; height: auto; display: block;
+  filter: drop-shadow(0 8px 16px rgba(0,0,0,0.06));
+}
+.sticker:hover { --scale: 1.08; z-index: 5; }
+.sticker:focus-visible { outline: 2px solid var(--ink); outline-offset: 6px; border-radius: 8px; }
+
+/* Name label tucked below the sticker, fades in on hover. Pen ink
+   colour matches the rest of the handwritten register. */
+.sticker-label {
+  position: absolute;
+  left: 50%;
+  bottom: -28px;
+  transform: translate(-50%, -4px);
+  font-family: var(--hand);
+  font-weight: 600;
+  font-size: 26px;
+  line-height: 1;
+  color: var(--ink-pen);
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 200ms ease, transform 220ms cubic-bezier(.2,.7,.2,1);
+  pointer-events: none;
+}
+.sticker:hover .sticker-label {
+  opacity: 1;
+  transform: translate(-50%, 4px);
+}
+
+/* Per-position variation. Sizes oscillate between 200-280px and tilts
+   between -2.5° and +2.5° on a 7-step cycle so the collage stays
+   varied even as the species set changes. */
+.sticker:nth-child(7n+1) { --w: 240px; --rot: -1.5deg; }
+.sticker:nth-child(7n+2) { --w: 200px; --rot:  1.2deg; }
+.sticker:nth-child(7n+3) { --w: 270px; --rot: -0.6deg; }
+.sticker:nth-child(7n+4) { --w: 215px; --rot:  2.0deg; }
+.sticker:nth-child(7n+5) { --w: 250px; --rot: -2.0deg; }
+.sticker:nth-child(7n+6) { --w: 195px; --rot:  0.8deg; }
+.sticker:nth-child(7n+7) { --w: 230px; --rot: -1.2deg; }
+
+@media (max-width: 760px) {
+  .sticker-page { gap: 28px 18px; padding: 40px 8px 72px; }
+  .sticker:nth-child(7n+1) { --w: 180px; }
+  .sticker:nth-child(7n+2) { --w: 150px; }
+  .sticker:nth-child(7n+3) { --w: 200px; }
+  .sticker:nth-child(7n+4) { --w: 160px; }
+  .sticker:nth-child(7n+5) { --w: 190px; }
+  .sticker:nth-child(7n+6) { --w: 145px; }
+  .sticker:nth-child(7n+7) { --w: 175px; }
+  .sticker-label { font-size: 22px; }
+}
+
 /* ——— silhouette caption ——— */
 .silhouette-caption {
   position: absolute;
