@@ -1,4 +1,4 @@
-/* Main app — Rex's Atlas */
+/* Main app — Rex's Notes */
 const { useState, useMemo, useEffect } = React;
 
 const ERAS = ["Triassic", "Jurassic", "Cretaceous"];
@@ -98,8 +98,7 @@ function Masthead({ route, query, setQuery }) {
     <header className="masthead">
       <div className="shell masthead-row">
         <button className="brand" onClick={() => navigate("/")}>
-          <span className="brand-mark"><BrandMark /></span>
-          <span className="brand-words">Rex's Atlas</span>
+          <span className="brand-words">Rex's Notes</span>
         </button>
         <div className="mast-search">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
@@ -139,7 +138,7 @@ function Masthead({ route, query, setQuery }) {
 function Footer() {
   return (
     <footer className="foot shell">
-      <div className="name">Rex's Atlas</div>
+      <div className="name">Rex's Notes</div>
       <div>Made for kids and the grown-ups reading along</div>
       <div>© 2026</div>
     </footer>
@@ -153,7 +152,7 @@ function Home({ query, eras, diets, clearAll, toggleEra, toggleDiet }) {
       if (eras.size && !eras.has(d.era)) return false;
       if (diets.size && !diets.has(d.diet)) return false;
       if (needle) {
-        const hay = `${d.name} ${d.teaser} ${d.diet} ${d.era} ${d.habitat}`.toLowerCase();
+        const hay = `${d.name} ${d.teaser} ${d.diet} ${d.era} ${d.habitat} ${(d.aliases || []).join(" ")}`.toLowerCase();
         if (!hay.includes(needle)) return false;
       }
       return true;
@@ -339,7 +338,7 @@ function About() {
   return (
     <main className="shell about fade-in">
       <h1>A small, considered field guide.</h1>
-      <p>Most kids' dinosaur content is either Wikipedia-dense or covered in ads. Rex's Atlas is an attempt at something else.</p>
+      <p>Most kids' dinosaur content is either Wikipedia-dense or covered in ads. Rex's Notes is an attempt at something else.</p>
       <p>Made for kids who love dinosaurs and the grown-ups reading along. Built in London for our son Ethan, and named for his grandfather Rex.</p>
       <div className="field-note">
         Printable at home on standard letter paper.<br/>

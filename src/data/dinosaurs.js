@@ -6,6 +6,7 @@ window.DINOSAURS = [
   {
     slug: "tyrannosaurus-rex",
     name: "Tyrannosaurus rex",
+    aliases: ["t rex", "t. rex", "trex", "tyrannosaur"],
     pronunciation: "tie-RAN-uh-SOR-us REX",
     teaser: "The one everyone draws first.",
     era: "Cretaceous",
