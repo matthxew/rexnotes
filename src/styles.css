@@ -293,6 +293,17 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
   .nav button { padding: 0 12px; min-height: 64px; }
   .nav button.active::after { bottom: 8px; left: 12px; right: 12px; }
 }
+/* Phones (portrait + landscape under tablet width): drop nav labels.
+   Brand + four icon-only buttons fit comfortably alongside each
+   other on row 1; the active page underline stays as the page-current
+   cue. Above 640 the labels come back. */
+@media (max-width: 640px) {
+  .nav { gap: 0; padding-left: 4px; }
+  .nav button { padding: 0 10px; gap: 0; }
+  .nav-label { display: none; }
+  .nav button.active .nav-label { display: none; }
+  .nav button.active::after { left: 8px; right: 8px; }
+}
 
 /* Sub-bar under the masthead: hosts the global mode toggle. Always visible.
    Right-aligned, slim, low-contrast — sits between the dense top row and
