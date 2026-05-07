@@ -860,6 +860,12 @@ button.meta-item:hover .meta-arrow {
   font-size: 26px;
   line-height: 1.35;
 }
+.about p.about-note {
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--ink-2);
+  margin-top: 32px;
+}
 .about .field-note {
   margin-top: 40px;
   padding-top: 24px;

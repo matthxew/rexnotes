@@ -106,7 +106,7 @@ function Masthead({ route, query, setQuery }) {
           </svg>
           <input
             type="text"
-            placeholder={route.name === "home" ? "Search dinosaurs by name, habitat, diet…" : "Search dinosaurs"}
+            placeholder="Search dinosaurs"
             value={query}
             onChange={e => { setQuery(e.target.value); if (route.name !== "home") navigate("/"); }}
           />
@@ -338,6 +338,7 @@ function About() {
       <h1>A small, considered dinosaur guide.</h1>
       <p>Most kids' dinosaur content is either Wikipedia-dense or covered in ads. Rex's Notes is an attempt at something else.</p>
       <p>Made for kids who love dinosaurs and the grown-ups reading along. Built in London for our son Ethan, and named for his grandfather Rex.</p>
+      <p className="about-note">A note on the illustrations: paleontology keeps moving — colours, postures, even feathers shift as new fossils turn up. The drawings here are our best interpretation from what we know today, not the final word. Take them as a starting point.</p>
       <div className="field-note">
         Printable at home on standard letter paper.<br/>
         For corrections, write to hi@matthxew.co.
