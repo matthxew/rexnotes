@@ -277,20 +277,18 @@ function Detail({ slug }) {
         </section>
 
         <section className="facts with-rule">
-          <div className="fact-block kids">
-            <div className="fact-label" data-num="01">For kids</div>
+          <div className="fact-block">
             <h2>What it was like.</h2>
             <p className="fact-body">{dino.forKids}</p>
           </div>
-          <div className="fact-block parents">
-            <div className="fact-label" data-num="02">For grown-ups</div>
+          <div className="fact-block">
             <h2>What we know now.</h2>
             <p className="fact-body">{dino.forParents}</p>
           </div>
         </section>
 
         <section className="trivia">
-          <h3>Field notes</h3>
+          <h3>Notes</h3>
           <ul>
             {dino.trivia.map((t, i) => <li key={i}>{t}</li>)}
           </ul>
