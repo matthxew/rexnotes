@@ -31,9 +31,11 @@ const escape = (s) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/
       continue;
     }
 
-    // Cutout on the right, sized to fit the 630-tall canvas with margin.
+    // Cutout sized to fit the right column (~480x540). fit: 'inside'
+    // keeps aspect; capping BOTH dims means a long-tailed sauropod
+    // can't crash into the text panel on the left.
     const cutout = await sharp(croppedPath)
-      .resize({ height: 540, fit: 'inside', withoutEnlargement: true })
+      .resize({ width: 480, height: 540, fit: 'inside', withoutEnlargement: true })
       .png()
       .toBuffer();
     const cutoutMeta = await sharp(cutout).metadata();
