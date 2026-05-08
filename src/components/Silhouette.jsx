@@ -10,7 +10,7 @@ window.Silhouette = function Silhouette({ slug, era, label = "illustration" }) {
     return (
       <img
         src={realUrl}
-        alt={slug}
+        alt={(window.DINOSAURS.find(d => d.slug === slug) || {}).name || slug}
         className="dino-illus"
         style={{ width: "100%", height: "100%", objectFit: "contain" }}
       />

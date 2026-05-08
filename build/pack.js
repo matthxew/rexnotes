@@ -181,16 +181,16 @@ function main() {
     }
   }
 
-  // Printable coloring pages — one PNG per supported species, exposed
-  // so the Detail page download button can hand them to the user.
-  const colorDir = path.join(SRC, 'assets/coloring');
-  if (fs.existsSync(colorDir)) {
-    for (const f of fs.readdirSync(colorDir)) {
+  // Printable coloring pages — served as static files at /coloring/<slug>.png
+  // by Vercel, NOT bundled. They're large and most users won't download
+  // them, so inlining them in index.html would be wasteful. The runtime
+  // loader resolves entries with a `url` field straight into window.__resources.
+  const colorPublic = path.join(ROOT, 'coloring');
+  if (fs.existsSync(colorPublic)) {
+    for (const f of fs.readdirSync(colorPublic)) {
       const slug = f.replace(/\.(png|jpg|jpeg|pdf)$/i, '');
       if (slug === f) continue;
-      const key = 'assets/coloring/' + f;
-      if (!map[key]) continue;
-      extResources.push({ id: 'coloring:' + slug, uuid: map[key] });
+      extResources.push({ id: 'coloring:' + slug, url: '/coloring/' + f });
     }
   }
   const loader = fs.readFileSync(path.join(BUILD, 'loader.js'), 'utf8').trimEnd();

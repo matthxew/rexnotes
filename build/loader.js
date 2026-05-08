@@ -71,7 +71,11 @@ document.addEventListener('DOMContentLoaded', async function() {
     const extResources = extResEl ? JSON.parse(extResEl.textContent) : [];
     const resourceMap = {};
     for (const entry of extResources) {
-      if (blobUrls[entry.uuid]) resourceMap[entry.id] = blobUrls[entry.uuid];
+      // Two shapes: {uuid} = bundled asset → resolve to its blob URL;
+      // {url} = pass-through static URL (e.g. coloring pages served by
+      // the host directly, not inlined in this bundle).
+      if (entry.url) resourceMap[entry.id] = entry.url;
+      else if (blobUrls[entry.uuid]) resourceMap[entry.id] = blobUrls[entry.uuid];
     }
 
     setStatus('Rendering...');

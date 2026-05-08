@@ -1222,18 +1222,18 @@ button.meta-item:hover .meta-arrow {
 /* Selection lifespan range — drawn over the strata band, beneath the
    labels. Era-tinted, with a thicker top/bottom edge so it reads as
    a marked-off range, not just a wash. */
+/* Selected species' lifespan overlay. Always ink-bordered (no era-tinted
+   borders) so the range stays distinguishable when the species sits in
+   its own era band — Cretaceous-on-Cretaceous was previously invisible. */
 .tl-range {
   position: absolute; top: 0; bottom: 0;
-  background: color-mix(in oklab, var(--ink) 8%, transparent);
-  border-top: 2px solid var(--ink);
-  border-bottom: 2px solid var(--ink);
+  background: color-mix(in oklab, var(--ink) 14%, transparent);
+  border-top: 2.5px solid var(--ink);
+  border-bottom: 2.5px solid var(--ink);
   pointer-events: none;
   z-index: 0;
   transition: left 220ms ease, width 220ms ease;
 }
-.tl-range[data-era="Triassic"]   { border-color: var(--triassic); }
-.tl-range[data-era="Jurassic"]   { border-color: var(--jurassic); }
-.tl-range[data-era="Cretaceous"] { border-color: var(--cretaceous); }
 
 .tl-dots {
   position: relative;
