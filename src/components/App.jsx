@@ -4,31 +4,37 @@ const { useState, useMemo, useEffect } = React;
 const ERAS = ["Triassic", "Jurassic", "Cretaceous"];
 const DIETS = ["Carnivore", "Herbivore", "Omnivore"];
 
-function useHashRoute() {
-  const [route, setRoute] = useState(() => parse(location.hash));
+function useRoute() {
+  const [route, setRoute] = useState(() => parse(location.pathname));
   useEffect(() => {
-    const h = () => setRoute(parse(location.hash));
-    window.addEventListener("hashchange", h);
-    return () => window.removeEventListener("hashchange", h);
+    const h = () => setRoute(parse(location.pathname));
+    window.addEventListener("popstate", h);
+    return () => window.removeEventListener("popstate", h);
   }, []);
   return route;
-  function parse(hash) {
-    const h = (hash || "").replace(/^#\/?/, "");
-    if (!h) return { name: "home" };
-    if (h === "about") return { name: "about" };
-    if (h === "timeline") return { name: "timeline" };
-    if (h === "map") return { name: "map" };
+  function parse(pathname) {
+    // Strip leading slash, ignore trailing slash.
+    const p = (pathname || "/").replace(/^\/+/, "").replace(/\/+$/, "");
+    if (!p) return { name: "home" };
+    if (p === "about") return { name: "about" };
+    if (p === "timeline") return { name: "timeline" };
+    if (p === "map") return { name: "map" };
     // Optional /<slug> on timeline + map deep-links to a pre-selected species.
-    const tl = h.match(/^timeline\/(.+)$/);
+    const tl = p.match(/^timeline\/(.+)$/);
     if (tl) return { name: "timeline", slug: tl[1] };
-    const mp = h.match(/^map\/(.+)$/);
+    const mp = p.match(/^map\/(.+)$/);
     if (mp) return { name: "map", slug: mp[1] };
-    const m = h.match(/^d\/(.+)$/);
+    const m = p.match(/^d\/(.+)$/);
     if (m) return { name: "detail", slug: m[1] };
     return { name: "home" };
   }
 }
-function navigate(path) { location.hash = path; window.scrollTo({ top: 0, behavior: "instant" }); }
+function navigate(path) {
+  // Always use pushState so back/forward work; same-path no-ops are fine.
+  if (location.pathname !== path) history.pushState({}, "", path);
+  window.dispatchEvent(new PopStateEvent("popstate"));
+  window.scrollTo({ top: 0, behavior: "instant" });
+}
 
 /* Brand mark — uses the uploaded footprint image at runtime. Falls back
    to a tiny inline SVG silhouette only if the image asset is missing
@@ -352,7 +358,7 @@ function About() {
 }
 
 function App() {
-  const route = useHashRoute();
+  const route = useRoute();
   const [query, setQuery] = useState("");
   const [eras, setEras] = useState(new Set());
   const [diets, setDiets] = useState(new Set());
