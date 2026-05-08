@@ -138,7 +138,7 @@ function verify(template, manifest) {
 }
 
 function main() {
-  console.log('Packing rexatlas...');
+  console.log('Packing rexnotes...');
   const map = loadMap();
 
   const { manifest, dirty } = buildManifest(map);
