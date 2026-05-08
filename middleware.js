@@ -21,7 +21,7 @@ const META = {
     "forParents": "Recent biomechanical modeling suggests adult T. rex topped out around 12 mph, well below the 25+ mph of older popular-science estimates; bone stress at higher speeds would have been catastrophic. Skin impressions confirm scales on the flanks and tail, but close relatives preserve filamentous protofeathers, so a downy juvenile is now the consensus reconstruction. The famous tiny arms were not vestigial; they could lift roughly 200 kg.",
     "trivia": [
       "Sue, the most complete T. rex skeleton, lived to about 28 and shows healed injuries that imply other rexes attacked her.",
-      "Its binocular vision was sharper than a hawk's.",
+      "Its binocular field was wider than a hawk's, with sharp depth perception.",
       "Recent papers suggest it had lips that covered its teeth at rest."
     ]
   },
@@ -69,7 +69,7 @@ const META = {
     "habitat": "Open conifer forests of western North America",
     "sizeCompare": "as long as a tennis court and as tall as a four-story building",
     "forKids": "Brachiosaurus had front legs longer than its back legs, like a giraffe. It probably ate around 200 kilograms of leaves every single day. That is roughly 1,000 heads of lettuce.",
-    "forParents": "Unlike most sauropods, Brachiosaurus held its neck more vertically, though biomechanical studies suggest blood pressure to the brain remained a problem requiring complex circulatory adaptations. It laid eggs roughly the size of a soccer ball; juveniles grew through about 60 years to reach adult mass. Recent isotope work places it browsing primarily at heights above 9 meters, niche-partitioning from Diplodocus.",
+    "forParents": "Unlike most sauropods, Brachiosaurus held its neck more vertically, though biomechanical studies suggest blood pressure to the brain remained a problem requiring complex circulatory adaptations. Bone histology across close sauropod relatives points to fast growth — adult body mass reached in roughly 20 to 30 years, not the half-century older estimates assumed. Recent isotope work places it browsing primarily at heights above 9 meters, niche-partitioning from Diplodocus.",
     "trivia": [
       "Nostrils sat on top of the skull, in front of the eyes.",
       "Its heart may have weighed over 200 kg.",
@@ -102,8 +102,8 @@ const META = {
     "diet": "Carnivore",
     "habitat": "River systems of North Africa",
     "sizeCompare": "longer than a city bus, with a sail taller than an adult",
-    "forKids": "Spinosaurus is the only dinosaur we know of that mostly lived in water. It had a long crocodile-shaped snout for catching fish and a flat tail like a paddle.",
-    "forParents": "A 2020 paper on a Moroccan tail described an eel-like, flexible tail morphology that re-cast Spinosaurus as a pursuit-swimmer rather than a wading shore-dweller, though the extent of its aquatic habits remains contested. Bone density is unusually high, consistent with diving. The original Egyptian holotype was destroyed in a WWII Allied bombing raid in 1944.",
+    "forKids": "Spinosaurus spent more time in water than any other dinosaur we know of. It had a long crocodile-shaped snout for catching fish and a flat tail like a paddle.",
+    "forParents": "A 2020 paper on a Moroccan tail described an eel-like, flexible morphology and proposed Spinosaurus as a pursuit-swimmer; subsequent work (notably Sereno and Myhrvold, 2022) has pushed back, favoring a heron-like wader interpretation. Bone density is unusually high, consistent with at least frequent submersion. The original Egyptian holotype was destroyed in a WWII Allied bombing raid in 1944.",
     "trivia": [
       "Larger than T. rex by length, though probably lighter.",
       "Conical teeth designed to grip slippery prey, not slice.",
@@ -153,7 +153,7 @@ const META = {
     "diet": "Herbivore",
     "habitat": "Dry forests of central Asia",
     "sizeCompare": "as tall as a giraffe with claws longer than your arm",
-    "forKids": "Therizinosaurus had the longest claws of any animal that ever lived, almost a meter each. It used them to pull leafy branches down to its mouth, like garden shears.",
+    "forKids": "Therizinosaurus had the longest claws of any animal that ever lived — the bone alone was about half a meter, and with the keratin sheath that covers a claw in life, close to a full meter. It used them to pull leafy branches down to its mouth, like garden shears.",
     "forParents": "Despite a theropod ancestry, the body plan converged on a sloth-like browser with a wide gut for fermenting plant material. The claws were almost certainly for foraging, with possible secondary use in display or defense. It is among the largest known feathered animals.",
     "trivia": [
       "Originally classified as a giant sea turtle when first found.",
@@ -187,8 +187,8 @@ const META = {
     "diet": "Herbivore",
     "habitat": "Open plains of western North America",
     "sizeCompare": "longer than three school buses end to end",
-    "forKids": "Diplodocus had a tail like a whip that could crack the air faster than the speed of sound. Its long neck held its head out flat, low to the ground, perfect for grazing.",
-    "forParents": "Computer simulations of the tail in 1997 suggested supersonic crack speeds, though tissue damage from such cracks would have been a real cost. Peg-like teeth at the front of the mouth, used for stripping leaves rather than chewing. Vertebrae are deeply hollowed, an air-sac-driven weight-saving system shared with modern birds.",
+    "forKids": "Diplodocus had a tail almost as long as the rest of its body, used for defense and balance. Its long neck held its head out flat, low to the ground, perfect for grazing.",
+    "forParents": "An influential 1997 simulation suggested its tail could crack at supersonic speeds, but a 2022 multibody-dynamics study put tip velocities closer to 30 m/s — well below the speed of sound, and the soft tissue likely couldn't have survived the stresses anyway. Peg-like teeth at the front of the mouth, used for stripping leaves rather than chewing. Vertebrae are deeply hollowed, an air-sac-driven weight-saving system shared with modern birds.",
     "trivia": [
       "Held its neck horizontally, not raised like Brachiosaurus.",
       "Hatchlings grew about a meter per year.",
@@ -205,7 +205,7 @@ const META = {
     "habitat": "Floodplain forests of western North America",
     "sizeCompare": "about the length of a delivery truck",
     "forKids": "Allosaurus had a mouth that could open extra wide, almost 90 degrees, like a snake. It used its head like a hatchet, swinging it down at prey.",
-    "forParents": "Unlike T. rex, which delivered crushing bite force, Allosaurus had a relatively weak bite but a hatchet-style attack: it used neck musculature to drive serrated upper teeth down through flesh. Multiple specimens at the Cleveland-Lloyd quarry suggest predator traps where carcasses attracted further predators. Distinct ridges above the eyes; juvenile and adult skulls differ markedly.",
+    "forParents": "Unlike T. rex, which delivered crushing bite force, Allosaurus had a relatively weak bite but a hatchet-style attack: it used neck musculature to drive serrated upper teeth down through flesh. The Cleveland-Lloyd quarry holds dozens of Allosaurus specimens; the current leading interpretation is drought-driven mass mortality at a shrinking watering hole, rather than the older 'predator trap' idea. Distinct ridges above the eyes; juvenile and adult skulls differ markedly.",
     "trivia": [
       "Most common large theropod in the Morrison Formation.",
       "Some specimens show healed Stegosaurus thagomizer wounds.",
@@ -256,10 +256,10 @@ const META = {
     "habitat": "Arid plains of South America",
     "sizeCompare": "about the length of a delivery truck",
     "forKids": "Carnotaurus had two short horns above its eyes, like a bull. Its arms were even shorter and stranger than T. rex's, like little flippers.",
-    "forParents": "Skin impressions from the holotype show a mosaic of pebbly scales studded with larger osteoderms running in rows along the body. Tail muscle attachments suggest one of the fastest large theropods, possibly clearing 30 mph for short bursts. Skull is short and deep, optimized for slashing rather than crushing bites.",
+    "forParents": "Skin impressions from the holotype show a mosaic of pebbly scales studded with larger osteoderms running in rows along the body. Tail muscle attachments suggest one of the fastest large theropods — early estimates put short bursts near 30 mph, though more recent biomechanical work has been skeptical of the upper end. Skull is short and deep, optimized for slashing rather than crushing bites.",
     "trivia": [
       "The forearms were so reduced that the radius and ulna were nearly fused.",
-      "Likely hunted small to mid-size sauropods.",
+      "Likely hunted other dinosaurs in the local fauna, though no direct bite-mark or stomach-content evidence survives.",
       "Eyes faced more forward than most theropods, suggesting some binocular vision."
     ]
   },
@@ -341,7 +341,7 @@ const META = {
     "habitat": "River systems of southeast Asia",
     "sizeCompare": "about the length of a delivery truck",
     "forKids": "Ichthyovenator means fish hunter. Its sail had a strange dip in the middle, like two fins instead of one.",
-    "forParents": "Described in 2012 from a partial skeleton in Laos, it is among the more complete Asian spinosaurids. The two-part sail is anatomically unusual and probably had a display function. Cervical morphology suggests a habitually low-slung neck for fishing, similar to herons.",
+    "forParents": "Described in 2012 from a partial skeleton in Laos, it is among the more complete Asian spinosaurids. The two-part sail is anatomically unusual and probably had a display function. Cervical morphology may indicate a low-slung neck for fishing, similar to herons, though the holotype's neck is incomplete.",
     "trivia": [
       "First spinosaurid found in Asia.",
       "Vertebral spines suggest the body sail was tall but interrupted.",
@@ -392,7 +392,7 @@ function speciesJsonLd(slug, d, url, image) {
     isPartOf: {
       '@type': 'WebSite',
       name: "Rex's Notes",
-      url: 'https://rexatlas.vercel.app',
+      url: 'https://rexnotes.com',
     },
     about: {
       '@type': 'Thing',
@@ -402,7 +402,7 @@ function speciesJsonLd(slug, d, url, image) {
     publisher: {
       '@type': 'Organization',
       name: "Rex's Notes",
-      url: 'https://rexatlas.vercel.app',
+      url: 'https://rexnotes.com',
     },
   });
 }

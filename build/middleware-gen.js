@@ -11,7 +11,7 @@ const fs = require('fs');
 const path = require('path');
 
 const ROOT = path.resolve(__dirname, '..');
-const SITE = 'https://rexatlas.vercel.app';
+const SITE = 'https://rexnotes.com';
 
 const fakeWindow = {};
 new Function('window', fs.readFileSync(path.join(ROOT, 'src/data/dinosaurs.js'), 'utf8'))(fakeWindow);
