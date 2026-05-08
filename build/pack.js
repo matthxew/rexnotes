@@ -180,6 +180,19 @@ function main() {
       extResources.push({ id: 'cropped:' + slug, uuid: map[key] });
     }
   }
+
+  // Printable coloring pages — one PNG per supported species, exposed
+  // so the Detail page download button can hand them to the user.
+  const colorDir = path.join(SRC, 'assets/coloring');
+  if (fs.existsSync(colorDir)) {
+    for (const f of fs.readdirSync(colorDir)) {
+      const slug = f.replace(/\.(png|jpg|jpeg|pdf)$/i, '');
+      if (slug === f) continue;
+      const key = 'assets/coloring/' + f;
+      if (!map[key]) continue;
+      extResources.push({ id: 'coloring:' + slug, uuid: map[key] });
+    }
+  }
   const loader = fs.readFileSync(path.join(BUILD, 'loader.js'), 'utf8').trimEnd();
   const shell = fs.readFileSync(path.join(BUILD, 'shell.html'), 'utf8');
 

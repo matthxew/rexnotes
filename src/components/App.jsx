@@ -294,18 +294,22 @@ function Detail({ slug }) {
           </ul>
         </section>
 
-        <section className="downloads">
-          <h3>Downloads</h3>
-          <div className="download-list">
-            <button className="download-item" onClick={() => window.generateColoringPDF(dino)}>
-              <div>
-                <div className="dl-name">{dino.name} coloring page</div>
-                <div className="dl-meta">PDF · US Letter · 1 page</div>
-              </div>
-              <div className="dl-action">Download ↓</div>
-            </button>
-          </div>
-        </section>
+        {window.__resources?.["coloring:" + dino.slug] && (
+          <section className="downloads">
+            <h3>Downloads</h3>
+            <div className="download-list">
+              <a className="download-item"
+                 href={window.__resources["coloring:" + dino.slug]}
+                 download={`${dino.slug}-coloring-page.png`}>
+                <div>
+                  <div className="dl-name">{dino.name} coloring page</div>
+                  <div className="dl-meta">PNG · print at letter size</div>
+                </div>
+                <div className="dl-action">Download ↓</div>
+              </a>
+            </div>
+          </section>
+        )}
 
         <NextPrev current={dino} />
       </div>
