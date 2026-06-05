@@ -84,6 +84,10 @@ document.addEventListener('DOMContentLoaded', async function() {
 
   // Error sink persists across replaceWith since it's on window, not the DOM.
   window.addEventListener('error', function(e) {
+    // Ignore resource-load errors (script/img/link 404s) — they have a DOM
+    // target rather than window and no message string. Third-party scripts
+    // like analytics shouldn't masquerade as bundle failures.
+    if (e.target && e.target !== window && !e.message) return;
     var p = document.body || document.documentElement;
     var d = document.getElementById('__bundler_err') || p.appendChild(document.createElement('div'));
     d.id = '__bundler_err';
